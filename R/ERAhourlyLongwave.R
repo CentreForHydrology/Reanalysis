@@ -8,9 +8,8 @@
 #' @param method Optional. The methods to be used for interpolation of the air temperature. Currently supported methods are \option{linear} and \option{spline}. The default is to use linear interpolation.
 #' @param quiet Optional. Suppresses display of messages, except for errors. If you are calling this function in an R script, you will usually leave \code{quiet=TRUE} (i.e. the default). If you are working interactively, you will probably want to set \code{quiet=FALSE}.
 #' @param logfile Optional. Name of the file to be used for logging the action. Normally not used
-#' @author Kevin Shook
-#'
 #' @return If successful, returns an obs dataframe containing the interpolated hourly ERA incoming longwave radiation (Qli) in W/m\eqn{^2}{^2}, and the hourly 2m air temperatures (t) in \eqn{^\circ}{}C. If unsuccessful, returns the value \code{FALSE}.
+#' @author Kevin Shook
 #' @export
 #' @seealso \code{\link{ERAgetNearestTimeseries}}  \code{\link{ERAdeaccum}} \code{\link{ERAhourlyShortwave}}
 #'

@@ -6,7 +6,7 @@ function(location, fname, variable, month, year, houroffset){
 
   nc <- RNetCDF::open.nc(fname, write=FALSE)
   nctimes <- RNetCDF::var.get.nc(nc, variable='time', unpack = TRUE)
-  all.values <- RNetCDF::var.get.nc(nc, variable==variable, unpack = TRUE)
+  all.values <- RNetCDF::var.get.nc(nc, variable=variable, unpack = TRUE)
   RNetCDF::close.nc(nc)
 
   count.time <- length(nctimes)

@@ -75,9 +75,7 @@ function(infile='', outfile='', logfile=''){
 
  # find start of data to make sure it starts at 01:00
   first.times <- times[1:24]
-  first.hours <- as.numeric(format
-                            (timeDate::timeDate
-                            (first.times, format = "%Y %m %d %H %M"),
+  first.hours <- as.numeric(format(timeDate::timeDate(first.times, format = "%Y %m %d %H %M"),
                                    format='%H'))
   start.loc <- which(first.hours == 1)
  # format time and trim data

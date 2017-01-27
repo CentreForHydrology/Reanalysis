@@ -1,6 +1,6 @@
 #' Land locations
 #'
-#' A dataframe containing the information about the locations inside the WFD netCDF files. This data is used by the function \code{\link{WATCHcreateWFDobs}}
+#' @description A dataframe containing the information about the locations inside the WFD netCDF files. This data is used by the function \code{\link{WATCHcreateHourlyWFDobs}}.
 #' @format A dataframe with 67420 rows and 6 variables:
 #' \describe{
 #'   \item{Land}{number of the grid location}

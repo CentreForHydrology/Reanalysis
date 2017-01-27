@@ -14,6 +14,7 @@
 #'\code{minLat}\tab maximum latitude of data(\eqn{^\circ}{degrees})\cr
 #'\code{date}\tab the date of each layer\cr
 #' }
+#' @author Kevin Shook
 #' @export
 #'
 #' @examples \dontrun{daily_precip <- ERAdailyArealPrecip(threehour_precip)
@@ -21,7 +22,7 @@
 ERAdailyArealPrecip <- function(ERAarealPrecip){
   # check parameter
   datetime <- ERAarealPrecip$datetime
-  if (length(datetime == 0)){
+  if (length(datetime) == 0){
     cat('Error: missing data\n')
     return(FALSE)
   }

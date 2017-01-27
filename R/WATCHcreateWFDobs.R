@@ -1,6 +1,6 @@
 #' Creates a CRHM .obs file of 3-hourly and 6-hourly values from WATCH reanalysis data WFD files
 #'
-#' @description Extracts data from WATCH WFD netCDF files and builds a CRHM .obs file of 3-hour data containing \code{t}, \code{ea}, \code{u10}, and \code{p} values. The values of \code{t}, \code{ea} and \code{u} are 6-hourly, with \code{NA} values inserted. The data are output at MST. The output values can be interpolated to hourly values using the function \code{WATCHhourlyObs}. The windspeeds are at 10m, so they are denoted as \code{u10}. Air temperatures are at 2m. The values for \code{ea} are computed from the atmospheric pressure (at 10m) and the absolute humidity (at 2m).
+#' @description Extracts data from WATCH WFD netCDF files and builds a CRHM .obs file of 3-hour data containing \code{t}, \code{ea}, \code{u10}, and \code{p} values. The values of \code{t}, \code{ea} and \code{u} are 6-hourly, with \code{NA} values inserted. The data are output at MST. The output values can be interpolated to hourly values using the function \code{HourlyWATCHObs}. The windspeeds are at 10m, so they are denoted as \code{u10}. Air temperatures are at 2m. The values for \code{ea} are computed from the atmospheric pressure (at 10m) and the absolute humidity (at 2m).
 #' @param nc.location Required. A character string of the directory holding the WATCH WFD netCDf files. This is a file path WITHOUT a terminal slash, e.g. \option{z:\\WATCH\\WFD}.
 #' @param startyear Optional. Year to begin. Must be in the range \code{1901-2001}. Default is \code{1901}.
 #' @param endyear Optional. Year to end. Must be in the range \code{1901-2001}. Default is \code{2001}.
@@ -103,7 +103,7 @@ function(nc.location='', startyear=1901, endyear=2001,
       # convert back to kPa and format
       all.values$ea <- format(all.values$e * 0.1, digits=3)
       all.values$p <- format((all.values$Rainf +
-                                all.values$Snowf) * 10800, digits=2) # mm/s -> mm
+                                all.values$Rainf) * 10800, digits=2) # mm/s -> mm
 
       all.values$u <- format(all.values$Wind, digits=2)
       all.values$Qsi <- format(all.values$SWdown, digits=2) #dp, added the line

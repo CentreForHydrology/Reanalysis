@@ -1,0 +1,13 @@
+citHeader("To cite Reanalysis in publications use:")
+
+citEntry(entry = "Manual",
+  title        = "{Reanalysis}: Creates Cold Regions Hydrological Modelling (CRHM) platform observations files from reanalysis data.",
+  author       = personList(as.person("Kevin Shook")),
+  year         = "2016",
+  url          = "www.usask.ca/hydrology/RPkgs.php/",
+
+  textVersion  =
+  paste("Kevin Shook (2016).",
+        "Reanalysis: Creates Cold Regions Hydrological Modelling (CRHM) platform observations files from reanalysis data.",
+        "URL www.usask.ca/hydrology/RPkgs.php/.")
+)

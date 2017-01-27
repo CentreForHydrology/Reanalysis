@@ -1,0 +1,15 @@
+Package: Reanalysis
+Type: Package
+Title: Reads reanalysis data for CRHM
+Version: 0.99.0
+Date: 2016-05-05
+Author: Kevin Shook, Centre for Hydrology, University of Saskatchewan
+Maintainer: Kevin Shook <kevin.shook@usask.ca>
+Description: Functions to read and process data from ERA files.
+Depends: R (>= 3.1)
+Imports: CRHMr (>= 2.2.8), lubridate(>= 1.3), timeDate,
+    stringr(>= 1.0), zoo, proj4, RNetCDF, reshape2
+License: GPL-3
+LazyData: true
+URL: www.usask.ca/hydrology
+RoxygenNote: 5.0.1

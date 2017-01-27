@@ -14,15 +14,16 @@
 #'Total precipitation* \tab m of water \tab tp \cr
 #' }
 #' Parameters marked with an asterisk are \emph{cumulative} values, and must be deaccumulated using the deaccumERA function.
-#' @param ncdfFile Required. Name of the NetCDF file containing ERA data
+#' @param ncdfFile Required. Name of the NetCDF file containing ERA data.
 #' @param varName Required. Name of the NetCDF variable to extract.
 #' @param pointLon Required. Decimal longitude of desired location. Note that the NetCDF longitude is 0-360\eqn{^\circ}{}, so add 360 to negative longitudes.
 #' @param pointLat Required. Decimal latitude of desired location.
-#' @param projection Optional. Projection to be used to convert latitudes and longitudes to locations. Used for finding the nearest ERA gridpoint. Default is \option{+proj=utm +zone=13 +ellps=WGS84}
+#' @param projection Optional. Projection to be used to convert latitudes and longitudes to locations. Used for finding the nearest ERA gridpoint. The default, \option{+proj=utm +zone=13 +ellps=WGS84}, is \emph{only} valid for Western Canada. If you are processing data for the whole world, you can use the August Epicycloidal Projection which is \option{+proj=august +lon_0=90w} .
 #' @param timezone Required. The name of the timezone of the data as a character string. This should be the timezone of your data, but omitting daylight savings time. Note that the timezone code is specific to your OS. To avoid problems, you should use a timezone without daylight savings time. Under Linux, you can use \option{CST} and \option{MST} for Central Standard or Mountain Standard time, respectively. Under Windows or OSX, you can use \option{etc/GMT+6} or \option{etc/GMT+7} for Central Standard and Mountain Standard time. DO NOT use \option{America/Regina} as the time zone, as it includes historical changes between standard and daylight savings time.
 #' @param quiet Optional. Suppresses display of messages, except for errors. If you are calling this function in an R script, you will usually leave \code{quiet=TRUE} (i.e. the default). If you are working interactively, you will probably want to set \code{quiet=FALSE}, as it will list the actual latitude and longitude of the ERA tile.
 #'@param logfile Optional. Name of the file to be used for logging the action. Normally not used.
 #' @return If unsuccessful, returns \code{FALSE}. If successfule,returns a standard \pkg{CRHMr} dataframe containing the datetime and the extracted data, which are unpacked (i.e. the NetCDF multiplier and offset have been applied).
+#' @author Kevin Shook
 #' @export
 #' @seealso  \code{\link{ERAdeaccum}}
 #' @examples \dontrun{

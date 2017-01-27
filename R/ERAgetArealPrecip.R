@@ -18,7 +18,9 @@
 #' }
 #' @export
 #'
-#' @examples \dontrun{threehour_precip <- ERAgetArealPrecip('_grib2netcdf-atls17-95e2cf679cd58ee9b4db4dd119a05a8d-szSVRK.nc', timezone='CST')
+#' @examples \dontrun{threehour_precip <- 
+#' ERAgetArealPrecip('_grib2netcdf-atls17-95e2cf679cd58ee9b4db4dd119a05a8d-szSVRK.nc', 
+#' timezone='CST')
 #' }
 ERAgetArealPrecip <- function(ncdfFile, timezone='', quiet=TRUE){
   # check parameters
