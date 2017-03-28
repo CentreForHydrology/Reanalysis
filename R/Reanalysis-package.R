@@ -10,7 +10,7 @@
 #'\cite{Pomeroy, John W, D M Gray, T Brown, N Hedstrom, W L Quinton, R J Granger, and S K Carey. 2007. \dQuote{The Cold Regions Hydrological Model : A Platform for Basing Process Representation and Model Structure on Physical Evidence}. Hydrological Processes 21 (19): 2650-2567.}\cr
 #'The CRHM model may be downloaded from \url{http://www.usask.ca/hydrology/CRHM.php}.\cr
 #' @importFrom stats aggregate na.omit
-#' @importFrom utils data download.file
+#' @importFrom utils data download.file read.csv read.table write.table
 #' @importFrom CRHMr interpolate saturatedVP CRHM_summary logAction win.eol distributeQsi distributeQli vp2rh
 #' @importFrom stringr str_detect str_to_lower fixed
 #' @importFrom timeDate timeDate timeSequence

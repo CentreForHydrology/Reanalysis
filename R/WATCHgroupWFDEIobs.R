@@ -119,9 +119,9 @@ WATCHgroupWFDEIobs <- function(siteFile, ncLocation, outputLocation, startyear=1
                                lon,'_',lat,'_', file_var, '.csv', sep='')
           
           if((year == startyear) & (month == 1))
-            write.table(out, outfileName, sep=',', eol=eol.val, row.names=FALSE, col.names = TRUE)
+            utils::write.table(out, outfileName, sep=',', eol=eol.val, row.names=FALSE, col.names = TRUE)
           else
-            write.table(out, outfileName, sep=',', eol=eol.val, row.names=FALSE, 
+            utils::write.table(out, outfileName, sep=',', eol=eol.val, row.names=FALSE, 
                         col.names = FALSE, append=TRUE)
           
         }

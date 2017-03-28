@@ -48,7 +48,7 @@ WATCHgroupWFDobs <- function(siteFile, ncLocation, outputLocation, startyear=190
     return(FALSE)
   }
   
-  sites <- read.csv(siteFile, header=TRUE, stringsAsFactors = FALSE)
+  sites <- utils::read.csv(siteFile, header=TRUE, stringsAsFactors = FALSE)
   site_count <- nrow(sites)
   
   file_vars <- c('Rainf_WFD_CRU','Snowf_WFD_CRU','Rainf_WFD_GPCC','Snowf_WFD_GPCC','Tair_WFD','Qair_WFD',
@@ -119,9 +119,9 @@ WATCHgroupWFDobs <- function(siteFile, ncLocation, outputLocation, startyear=190
                                lon,'_',lat,'_', file_var, '.csv', sep='')
           
           if((year == startyear) & (month == 1))
-            write.table(out, outfileName, sep=',', eol=eol.val, row.names=FALSE, col.names = TRUE)
+            utils::write.table(out, outfileName, sep=',', eol=eol.val, row.names=FALSE, col.names = TRUE)
           else
-            write.table(out, outfileName, sep=',', eol=eol.val, row.names=FALSE, 
+            utils::write.table(out, outfileName, sep=',', eol=eol.val, row.names=FALSE, 
                         col.names = FALSE, append=TRUE)
           
         }
@@ -145,7 +145,7 @@ WATCHgroupWFDobs <- function(siteFile, ncLocation, outputLocation, startyear=190
       file_var <- file_vars[var_num]
       infileName <- paste(outputLocation, sites$Land[site_num], '_',
                            lon,'_',lat,'_', file_var, '.csv', sep='')
-      var_values <- read.csv(file=infileName, header=TRUE, stringsAsFactors = FALSE)
+      var_values <- utils::read.csv(file=infileName, header=TRUE, stringsAsFactors = FALSE)
       names(var_values)[2] <- file_var
       var_values$datetime <- as.POSIXct(var_values$datetime, format='%Y-%m-%d %H:%M', tz=timezone)
       

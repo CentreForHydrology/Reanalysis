@@ -113,7 +113,7 @@ function(nc.location='', startyear=1901, endyear=2001,
                                'p', 'Qsi', 'Qli')] #dp, added Qsi and Qli
 
       ObsData$DateTime <- format(ObsData$DateTime, format='%Y %m %d %H %M')
-      write.table(ObsData, file=obsFileName, sep='\t',col.names=FALSE, row.names=FALSE,
+      utils::write.table(ObsData, file=obsFileName, sep='\t',col.names=FALSE, row.names=FALSE,
                   quote=FALSE, eol =  eol.val, append=TRUE)
     }
   }

@@ -27,7 +27,7 @@ function(infile='', outfile='', logfile=''){
     return(FALSE)
   }
   classes <- c('character', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric' )
-  original <- read.table(infile, header=FALSE, skip=8, sep='\t',na.strings = "NA",
+  original <- utils::read.table(infile, header=FALSE, skip=8, sep='\t',na.strings = "NA",
                          stringsAsFactors=FALSE, colClasses=classes)
   # read first line from .obs file to write to output
   fileName <- infile
@@ -92,7 +92,7 @@ function(infile='', outfile='', logfile=''){
       '$u refwind(u10, 10, 2, 0.5)  "convert 10m wind speed to 2m wind speed"',  eol.val,
       '########################################',  eol.val, file=outfile, sep='')
 
-  write.table(output, file=outfile, sep='\t',col.names=FALSE, row.names=FALSE,
+  utils::write.table(output, file=outfile, sep='\t',col.names=FALSE, row.names=FALSE,
               quote=FALSE, eol = eol.val, append=TRUE)
 
   # record to logfile
