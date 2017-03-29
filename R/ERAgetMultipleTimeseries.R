@@ -1,4 +1,4 @@
-#' Finds timeseries of ERA data nearest to multiple specified locations
+#' Extracts timeseries of ERA data nearest to multiple specified locations
 #' @description Reads a NetCDF file containing ERA reanalysis data and extracts the timeseries of the specified variable for each location. This is faster than calling the function \code{ERAgetNearestTimseries} for each location, as the reanalysis data are only read in once. Some of the the commonly-used variables are:
 #' \tabular{llr}{
 #'\bold{Parameter} \tab \bold{Units} \tab \bold{Variable}\cr
