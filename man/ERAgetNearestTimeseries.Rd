@@ -26,7 +26,7 @@ ERAgetNearestTimeseries(ncdfFile, varName, pointLon, pointLat,
 \item{logfile}{Optional. Name of the file to be used for logging the action. Normally not used.}
 }
 \value{
-If unsuccessful, returns \code{FALSE}. If successfule,returns a standard \pkg{CRHMr} dataframe containing the datetime and the extracted data, which are unpacked (i.e. the NetCDF multiplier and offset have been applied).
+If unsuccessful, returns \code{FALSE}. If successful, returns a standard \pkg{CRHMr} dataframe containing the datetime and the extracted data, which are unpacked (i.e. the NetCDF multiplier and offset have been applied).
 }
 \description{
 Reads a NetCDF file containing ERA reanalysis data and extracts the timeseries of the specified variable. Some of the the commonly-used variables are:
