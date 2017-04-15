@@ -11,5 +11,5 @@ The commands are:
 
 	install.packages("devtools")
 	library(devtools)
-	install_github("CentreForHydrology/Reanalysis/Reanalysis")
+	install_github("CentreForHydrology/Reanalysis")
 
