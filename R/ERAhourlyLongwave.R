@@ -62,7 +62,7 @@ ERAhourlyLongwave <- function(ERAstrd, strdColnum=1, ERAt2m, t2mColnum=1,
   if (!quiet)
     print(obs.info)
 
-  comment <- paste('hourlyERAlongwave:', obsName1, sep='')
+  comment <- paste('ERAhourlyLongwave:', obsName1, sep='')
 
   result <-  CRHMr::logAction(comment, logfile)
 

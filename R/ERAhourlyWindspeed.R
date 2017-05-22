@@ -14,7 +14,7 @@
 #'
 #' @examples \dontrun{
 #' hourlyU <- ERAhourlyWindspeed(ERAu10=u10, ERAv10=v10)}
-hourlyERAwindspeed <- function(ERAu10, u10Colnum=1, ERAv10, v10Colnum=1,
+ERAhourlyWindspeed <- function(ERAu10, u10Colnum=1, ERAv10, v10Colnum=1,
                             method='linear', quiet=TRUE, logfile=''){
 
   # check parameters

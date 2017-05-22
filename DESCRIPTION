@@ -12,6 +12,6 @@ Imports: CRHMr (>= 2.2.9), lubridate(>= 1.3), timeDate, stringr(>=
 License: GPL-3
 LazyData: true
 URL: www.usask.ca/hydrology
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 NeedsCompilation: no
 Packaged: 2016-05-22 00:49:03 UTC; kevin
