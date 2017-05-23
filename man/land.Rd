@@ -23,4 +23,3 @@ land
 A dataframe containing the information about the locations inside the WFD netCDF files. This data is used by the function \code{\link{WATCHcreateHourlyWFDobs}}.
 }
 \keyword{datasets}
-

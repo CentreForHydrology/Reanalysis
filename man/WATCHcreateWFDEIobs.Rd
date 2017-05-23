@@ -39,10 +39,9 @@ location <- 'z:\\data\\WATCH\\WFDEI'
 obsFileName <- 'VermilionWATCH_WFDEI.obs'
 WATCHcreateWFDEIobs(location, 1979, 2001, -111.9, 53.2, -7, obsFileName)}
 }
-\author{
-Kevin Shook.
-}
 \references{
 R code for conversion of air pressure and absolute humidity was taken from project PEcAn The Predictive Ecosystem Analyzer \url{http://pecanproject.github.io}. The source code is available at \url{https://github.com/PecanProject/pecan/blob/master/modules/data.atmosphere/R/metutils.R.}
 }
-
+\author{
+Kevin Shook.
+}

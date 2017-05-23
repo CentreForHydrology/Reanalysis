@@ -2,7 +2,7 @@
 % Please edit documentation in R/ERAgetMultipleTimeseries.R
 \name{ERAgetMultipleLocationTimeseries}
 \alias{ERAgetMultipleLocationTimeseries}
-\title{Finds timeseries of ERA data nearest to multiple specified locations}
+\title{Extracts timeseries of ERA data nearest to multiple specified locations}
 \usage{
 ERAgetMultipleLocationTimeseries(ncdfFile, varName, siteNames, outDir = "",
   pointLons, pointLats, projection = "+proj=utm +zone=13 +ellps=WGS84",
@@ -54,10 +54,9 @@ ERAgetMultipleLocationTimeseries('ssrd.nc', 'ssrd', s$`Station Names`,
 pointLons = s$Longitude, pointLats = s$Latitude, projection='+proj=august +lon_0=90w', 
 timezones=s$timezone, quiet=FALSE)}
 }
-\author{
-Kevin Shook
-}
 \seealso{
 \code{\link{ERAgetNearestTimeseries}} \code{\link{ERAdeaccum}}
 }
-
+\author{
+Kevin Shook
+}

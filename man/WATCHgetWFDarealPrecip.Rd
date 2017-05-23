@@ -34,4 +34,3 @@ monthly_rain <- WATCHgetWFDarealPrecip('Rainf_WFD_CRU_190101.nc',
 \author{
 Kevin Shook
 }
-

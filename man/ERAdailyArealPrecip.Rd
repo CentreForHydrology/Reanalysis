@@ -33,4 +33,3 @@ Calculates the daily total ERA precipitation, for all locations.
 \author{
 Kevin Shook
 }
-

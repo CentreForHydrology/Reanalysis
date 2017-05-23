@@ -58,13 +58,12 @@ trimmedObs <- CRHMr::trimObs(obs)
 CRHMr::writeObsFile(trimmedObs, obsFileName)}
 
 }
-\author{
-Kevin Shook.
-}
 \references{
 \R code for conversion of air pressure and absolute humidity was taken from project PEcAn The Predictive Ecosystem Analyzer \url{http://pecanproject.github.io}. The source code is available at \url{https://github.com/PecanProject/pecan/blob/master/modules/data.atmosphere/R/metutils.R.}
 }
 \seealso{
 \code{\link{WATCHcreateHourlyWFDobs}} \code{\link[CRHMr]{trimObs}} \code{\link[CRHMr]{appendObs}}
 }
-
+\author{
+Kevin Shook.
+}

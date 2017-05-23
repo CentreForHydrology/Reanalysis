@@ -27,4 +27,3 @@ WATCHhourlyObs('VermilionWATCH_WFDEI.obs', 'VermilionWFDEIhourly.obs')}
 \author{
 Kevin Shook
 }
-

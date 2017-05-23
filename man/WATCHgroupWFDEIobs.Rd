@@ -52,10 +52,9 @@ WATCHgroupWFDEIobs(siteFile = points, ncLocation = ncloc, outputLocation=outputL
 startyear = 1962, endyear = 1962))
 }
 }
-\author{
-Kevin Shook
-}
 \references{
 R code for conversion of air pressure and absolute humidity was taken from project PEcAn The Predictive Ecosystem Analyzer \url{http://pecanproject.github.io}. The source code is available at \url{https://github.com/PecanProject/pecan/blob/master/modules/data.atmosphere/R/metutils.R.}
 }
-
+\author{
+Kevin Shook
+}

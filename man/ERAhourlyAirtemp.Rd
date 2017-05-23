@@ -28,10 +28,9 @@ Interpolates ERA 3-hour instantaneous air temperatures to hourly values. The ERA
 \dontrun{
 hourlyTemps <- ERAhourlyAirtemp(t2m)}
 }
-\author{
-Kevin Shook
-}
 \seealso{
 \code{\link{ERAgetNearestTimeseries}} \code{\link[CRHMr]{interpolate}}
 }
-
+\author{
+Kevin Shook
+}

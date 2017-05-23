@@ -30,4 +30,3 @@ Downloads NARR NetCDF files for a specified variable for a specified time step a
 \dontrun{
 NARRdownloadNetCDF('3h', 1979, 2015)}
 }
-

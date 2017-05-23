@@ -28,10 +28,9 @@ Interpolates ERA 3-hour instantaneous dew point temperatures to hourly values. T
 \dontrun{
 hourlyVP <- ERAhourlyVP(d2m)}
 }
-\author{
-Kevin Shook
-}
 \seealso{
 \code{\link{ERAgetNearestTimeseries}} \code{\link[CRHMr]{interpolate}} \code{\link{ERAhourlyAirtemp}}
 }
-
+\author{
+Kevin Shook
+}

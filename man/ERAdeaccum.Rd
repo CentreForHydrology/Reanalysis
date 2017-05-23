@@ -29,4 +29,3 @@ deaccum <- ERAdeaccum(ERAobs)}
 \author{
 Kevin Shook
 }
-

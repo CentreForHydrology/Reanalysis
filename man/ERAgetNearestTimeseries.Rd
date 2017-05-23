@@ -54,10 +54,9 @@ u10 <- ERAgetNearestTimeseries('u10v10.nc', 'u10', 243.5, 51.69, timezone='Etc/G
 v10 <- ERAgetNearestTimeseries('u10v10.nc', 'v10', 243.5, 51.69, timezone='Etc/GMT+7')
 d2m <- ERAgetNearestTimeseries('d2m.nc', 'd2m', 243.5, 51.69, timezone='Etc/GMT+7')}
 }
-\author{
-Kevin Shook
-}
 \seealso{
 \code{\link{ERAdeaccum}}
 }
-
+\author{
+Kevin Shook
+}

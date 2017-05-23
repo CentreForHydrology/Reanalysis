@@ -33,10 +33,9 @@ This function is called \emph{after} using the function \code{getNearestERAtimes
 hourlyQsi <- ERAhourlyShortwave(ssrd, latitude = 51.69)}
 
 }
-\author{
-Kevin Shook
-}
 \seealso{
 \code{\link{ERAgetNearestTimeseries}}  \code{\link{ERAhourlyLongwave}} \code{\link[CRHMr]{distributeQsi}}
 }
-
+\author{
+Kevin Shook
+}

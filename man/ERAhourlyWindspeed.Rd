@@ -2,10 +2,9 @@
 % Please edit documentation in R/ERAhourlyWindspeed.R
 \name{ERAhourlyWindspeed}
 \alias{ERAhourlyWindspeed}
-\alias{hourlyERAwindspeed}
 \title{Estimates hourly wind speeds from ERA 3 hourly wind vectors}
 \usage{
-hourlyERAwindspeed(ERAu10, u10Colnum = 1, ERAv10, v10Colnum = 1,
+ERAhourlyWindspeed(ERAu10, u10Colnum = 1, ERAv10, v10Colnum = 1,
   method = "linear", quiet = TRUE, logfile = "")
 }
 \arguments{
@@ -33,10 +32,9 @@ Estimates hourly wind speeds from ERA 3 hourly wind vectors
 \dontrun{
 hourlyU <- ERAhourlyWindspeed(ERAu10=u10, ERAv10=v10)}
 }
-\author{
-Kevin Shook
-}
 \seealso{
 \code{\link{ERAgetNearestTimeseries}} \code{\link[CRHMr]{interpolate}}
 }
-
+\author{
+Kevin Shook
+}

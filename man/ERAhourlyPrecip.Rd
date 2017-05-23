@@ -25,10 +25,9 @@ This function is called \emph{after} using the function \code{getNearestERAtimes
 \dontrun{
 hourlyP <- ERAhourlyPrecip(tp)}
 }
-\author{
-Kevin Shook
-}
 \seealso{
 \code{\link{ERAgetNearestTimeseries}}
 }
-
+\author{
+Kevin Shook
+}

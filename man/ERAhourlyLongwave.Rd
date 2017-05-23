@@ -32,13 +32,12 @@ This function is called \emph{after} using the function \code{getNearestERAtimes
 \dontrun{
 hourlyQli <- ERAhourlyLongwave(ERAstrd=strd, ERAt2m=t2m)}
 }
-\author{
-Kevin Shook
-}
 \references{
 The value of the Stefan-Boltzmann constant was obtained from \url{http://physics.nist.gov/cgi-bin/cuu/Value?sigma}
 }
 \seealso{
 \code{\link{ERAgetNearestTimeseries}}  \code{\link{ERAdeaccum}} \code{\link{ERAhourlyShortwave}}
 }
-
+\author{
+Kevin Shook
+}

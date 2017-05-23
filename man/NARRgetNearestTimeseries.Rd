@@ -35,4 +35,3 @@ Reads a NARR NetCDF file, which contains all of the 3-hour values of a single va
 p1979 <- NARRgetNearestTimeseries('acpcp.1979.nc', varName='acpcp', pointLon = -113, 
 pointLat = 52, timezone = 'CST', quiet=FALSE)}
 }
-

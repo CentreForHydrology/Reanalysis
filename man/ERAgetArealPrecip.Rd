@@ -36,4 +36,3 @@ ERAgetArealPrecip('_grib2netcdf-atls17-95e2cf679cd58ee9b4db4dd119a05a8d-szSVRK.n
 timezone='CST')
 }
 }
-
