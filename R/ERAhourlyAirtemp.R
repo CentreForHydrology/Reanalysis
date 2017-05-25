@@ -41,7 +41,14 @@ ERAhourlyAirtemp <- function(ERAt2m, t2mColnum=1, method='linear', quiet=TRUE, l
   # first generate hourly time series
   firstDatetime <- ERAt2m$datetime[1]
   lastDatetime <- ERAt2m$datetime[nrow(ERAt2m)]
-
+  
+  # get timestep
+  dt  <- difftime(ERAt2m$datetime[1], ERAt2m$datetime[2], units='hours')
+  dt <- abs(as.numeric(dt))
+  
+  # get interpolation max length
+  interpolationLength <- dt + 1
+  
   # generate hourly datetimes
   datetime <- seq(from=firstDatetime, to=lastDatetime, by=3600)
 
@@ -50,7 +57,7 @@ ERAhourlyAirtemp <- function(ERAt2m, t2mColnum=1, method='linear', quiet=TRUE, l
   merged <- merge(hourly, ERAt2m, by='datetime', all.x=TRUE)
 
   # now interpolate
-  hourlyT <- CRHMr::interpolate(merged, varcols=1, methods=method, maxlength=4,
+  hourlyT <- CRHMr::interpolate(merged, varcols=1, methods=method, maxlength=interpolationLength,
                               quiet, logfile)
 
   names(hourlyT) <- c('datetime', 't')
