@@ -2,7 +2,7 @@
 % Please edit documentation in R/ERAhourlyAirtemp.R
 \name{ERAhourlyAirtemp}
 \alias{ERAhourlyAirtemp}
-\title{Estimates hourly air temperatures from ERA 3 hourly values}
+\title{Estimates hourly air temperatures from ERA-Interim 3 -hourly or ERA-40 6-hourly values}
 \usage{
 ERAhourlyAirtemp(ERAt2m, t2mColnum = 1, method = "linear", quiet = TRUE,
   logfile = "")
@@ -22,7 +22,7 @@ ERAhourlyAirtemp(ERAt2m, t2mColnum = 1, method = "linear", quiet = TRUE,
 If successful, returns an obs dataframe containing the interpolated hourly 2m air temperatures. If unsuccessful, returns the value \code{FALSE}.
 }
 \description{
-Interpolates ERA 3-hour instantaneous air temperatures to hourly values. The ERA air temperatures are first converted from K to \eqn{^\circ}{}C, if required.
+Interpolates ERA instantaneous air temperatures to hourly values. The ERA air temperatures are first converted from K to \eqn{^\circ}{}C, if required.
 }
 \examples{
 \dontrun{

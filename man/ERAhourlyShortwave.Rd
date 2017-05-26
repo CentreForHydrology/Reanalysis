@@ -2,21 +2,24 @@
 % Please edit documentation in R/ERAhourlyShortwave.R
 \name{ERAhourlyShortwave}
 \alias{ERAhourlyShortwave}
-\title{Estimates hourly incoming shortwave radiation from ERA 3 hourly values}
+\title{Estimates hourly incoming shortwave radiation from ERA-Interim 3-hourly values or ERA-40 6-hourly values}
 \usage{
 ERAhourlyShortwave(ERAssrd, ssrdColnum = 1, latitude, sunTimeOffset = 2,
-  solarMethod = "simpleMaxSolar", quiet = TRUE, logfile = "")
+  solarMethod = "simpleMaxSolar", interpolationMethod = "linear",
+  quiet = TRUE, logfile = "")
 }
 \arguments{
 \item{ERAssrd}{Required. The \pkg{CRHMr} obs dataframe of ERA ssrd values. The values must not be deaccumulated, as the \code{deaccumERA} function is called by this function.}
 
 \item{ssrdColnum}{Optional. The column number containing the ssrd values, not including the datetime. Default is column 1.}
 
-\item{latitude}{Required. The latitude of the point at which the ssrd data is extracted. This value is used to calculate the extra-terrestrial incoming solar radiation.}
+\item{latitude}{Required. The latitude of the point at which the ssrd data is extracted. This value is used to calculate the extra-terrestrial incoming solar radiation. Not used for ERA-40 data.}
 
-\item{sunTimeOffset}{Optional. Number of hours that local noon is offset from solar noon. The default is 2 hours.}
+\item{sunTimeOffset}{Optional. Number of hours that local noon is offset from solar noon. The default is 2 hours. Not used for ERA-40 data.}
 
-\item{solarMethod}{Optional. The method to be used for calculating the extra-terrestrial radiation. Default is \option{simpleMaxSolar}.}
+\item{solarMethod}{Optional. The method to be used for calculating the extra-terrestrial radiation for 3-hourly ERA-Interim data. The default is \option{simpleMaxSolar}. The other supported method is \option{PotSolarInst}, which requires the package \pkg{EcoHydRology} to be installed.}
+
+\item{interpolationMethod}{Optional. This is the method to be usied for interpolating instantaneous values from ERA-40. The default is \option{linear}, but \option{spline} can also be specified.}
 
 \item{quiet}{Optional. Suppresses display of messages, except for errors. If you are calling this function in an \R script, you will usually leave \code{quiet=TRUE} (i.e. the default). If you are working interactively, you will probably want to set \code{quiet=FALSE}.}
 
@@ -26,7 +29,7 @@ ERAhourlyShortwave(ERAssrd, ssrdColnum = 1, latitude, sunTimeOffset = 2,
 If successful, returns an obs dataframe containing the interpolated hourly ERA incoming shortwave radiation (Qsi). If unsuccessful, returns the value \code{FALSE}.
 }
 \description{
-This function is called \emph{after} using the function \code{getNearestERAtimeseries}. This function removes negative values, deaccumulates the 12-hour cumulative values, using the function \code{ERAdeaccum} and interpolates the 3-hour values to hourly values, based on the extra-terrestrial hourly radiation.
+This function is called \emph{after} using the function \code{getNearestERAtimeseries}. This function removes negative values, deaccumulates the ERA-Interim 12-hour cumulative values, using the function \code{ERAdeaccum} and interpolates the 3-hour values to hourly values, based on the extra-terrestrial hourly radiation. ERA-40 6-hourly instantaneous values are interpolated directly to hourly values.
 }
 \examples{
 \dontrun{

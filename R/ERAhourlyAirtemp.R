@@ -1,6 +1,6 @@
-#' Estimates hourly air temperatures from ERA 3 hourly values
+#' Estimates hourly air temperatures from ERA-Interim 3 -hourly or ERA-40 6-hourly values
 #' @name ERAhourlyAirtemp
-#' @description Interpolates ERA 3-hour instantaneous air temperatures to hourly values. The ERA air temperatures are first converted from K to \eqn{^\circ}{}C, if required.
+#' @description Interpolates ERA instantaneous air temperatures to hourly values. The ERA air temperatures are first converted from K to \eqn{^\circ}{}C, if required.
 #' @param ERAt2m Required. The \pkg{CRHMr} obs dataframe of ERA t2m values. The values must not be deaccumulated, as the \code{deaccumERA} function is called by this function.
 #' @param t2mColnum Optional. The column number containing the t2m values, not including the datetime. Default is column 1.
 #' @param method Optional. The methods to be used for interpolation of the air temperature. Currently supported methods are \option{linear} and \option{spline}. The default is to use linear interpolation.

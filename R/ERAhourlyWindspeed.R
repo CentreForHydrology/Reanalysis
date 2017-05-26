@@ -1,4 +1,4 @@
-#' Estimates hourly wind speeds from ERA 3 hourly wind vectors
+#' Estimates hourly wind speeds from ERA-Interim 3-hourly or ERA-40 6-hourly wind vectors
 #' @name ERAhourlyWindspeed
 #' @param ERAu10 Required. The \pkg{CRHMr} obs dataframe of ERA u10 wind vector values. The values must not be deaccumulated, as the \code{deaccumERA} function is called by this function.
 #' @param u10Colnum Optional. The column number containing the u10 values, not including the datetime. Default is column 1.
@@ -44,9 +44,15 @@ ERAhourlyWindspeed <- function(ERAu10, u10Colnum=1, ERAv10, v10Colnum=1,
 
 
   # merge dataframes together
-
   merged <- merge(ERAu10, ERAv10, by='datetime')
   names(merged)[2:3] <- c('u10', 'v10')
+  
+  # get timestep
+  dt  <- difftime(merged$datetime[1], merged$datetime[2], units='hours')
+  dt <- abs(as.numeric(dt))
+  
+  # get interpolation max length
+  interpolationLength <- dt + 1
 
   # interpolate to hourly
   # first generate hourly time series
@@ -61,7 +67,7 @@ ERAhourlyWindspeed <- function(ERAu10, u10Colnum=1, ERAv10, v10Colnum=1,
   merged2 <- merge(hourly, merged, by='datetime', all.x=TRUE)
 
   # now interpolate
-  hourly <-  CRHMr::interpolate(merged2, varcols=c(1,2), methods=method, maxlength=4,
+  hourly <-  CRHMr::interpolate(merged2, varcols=c(1,2), methods=method, maxlength=interpolationLength,
                              quiet, logfile)
 
   hourly$windspeed <- (hourly$u10 ^ 2 + hourly$v10 ^ 2) ^ 0.5

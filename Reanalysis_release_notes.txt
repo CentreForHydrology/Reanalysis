@@ -22,3 +22,5 @@ version 1.0.3 Tue 28 Mar 2017 10:45:54 AM CST
 version 1.0.4 Mon 22 May 2017 09:13:11 AM CST 
 - fixed naming problem with ERAhourlyWindspeed
 
+version 1.05 Fri 26 May 2017 03:12:06 PM CST 
+- ERA functions now work with ERA-40 data as well as ERA-Interim

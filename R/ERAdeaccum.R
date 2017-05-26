@@ -29,7 +29,7 @@ ERAdeaccum <- function(ERAobs, colnum=1, quiet=TRUE, logfile=''){
   colnum <- colnum + 1
   deaccum <-  c(ERAobs[1,colnum], diff(ERAobs[,colnum]))
 
-  # get reset locations
+
   resets <- seq(from=1, by=4, length.out=length(deaccum)/4)
   deaccum[resets] <- ERAobs[resets, colnum]
   ERAobs[,colnum] <- deaccum

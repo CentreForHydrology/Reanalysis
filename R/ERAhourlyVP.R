@@ -1,6 +1,6 @@
-#' Calculates the hourly vapour pressure from the 3-hour ERA dew point temperature
+#' Calculates the hourly vapour pressure from the 3-hour ERA-Interim or 6 hour ERA-40 dew point temperature
 #' @name ERAhourlyVP
-#' @description Interpolates ERA 3-hour instantaneous dew point temperatures to hourly values. The ERA dew point temperatures are first converted from K to \eqn{^\circ}{}C, if required.
+#' @description Interpolates ERA instantaneous dew point temperatures to hourly values. The ERA dew point temperatures are first converted from K to \eqn{^\circ}{}C, if required.
 #' @param ERAd2m Required. The \pkg{CRHMr} obs dataframe of ERA d2m values. The values must not be deaccumulated, as the \code{deaccumERA} function is called by this function.
 #' @param d2mColnum Optional. The column number containing the d2m values, not including the datetime. Default is column 1.
 #' @param method Optional. The methods to be used for interpolation of the dew point temperature. Currently supported methods are \option{linear} and \option{spline}. The default is to use linear interpolation.
@@ -34,6 +34,13 @@ ERAhourlyVP <- function(ERAd2m, d2mColnum=1, method='linear', quiet=TRUE, logfil
       cat('Values appear to be in K, will be converted to C')
     ERAd2m[,2] <- ERAd2m[,2] - 273.15
   }
+  
+  # get timestep
+  dt  <- difftime(ERAd2m$datetime[1], ERAd2m$datetime[2], units='hours')
+  dt <- abs(as.numeric(dt))
+  
+  # get interpolation max length
+  interpolationLength <- dt + 1
 
   # interpolate to hourly
   # first generate hourly time series
@@ -48,7 +55,7 @@ ERAhourlyVP <- function(ERAd2m, d2mColnum=1, method='linear', quiet=TRUE, logfil
   merged <- merge(hourlyd2m, ERAd2m, by='datetime', all.x=TRUE)
 
   # now interpolate
-  hourlydt2m <-  CRHMr::interpolate(merged, varcols=1, methods=method, maxlength=4,
+  hourlydt2m <-  CRHMr::interpolate(merged, varcols=1, methods=method, maxlength=interpolationLength,
                              quiet, logfile)
 
   # get vapour pressure

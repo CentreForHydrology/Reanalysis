@@ -3,7 +3,7 @@
 #' @name Reanalysis-package
 #'
 #' @description
-#' The package contains functions to download and process reanalysis data. Functions are provided for ETA, NARR and WATCH datasets. Because there are so many functions and all of the datasets are slightly different, each function has the prefix of its dataset.
+#' The package contains functions to download and process reanalysis data. Functions are provided for ERA (-Interim and -40), NARR and WATCH datasets. Because there are so many functions and all of the datasets are slightly different, each function name includes the dataset as a prefix.
 #' @references
 #' To cite \pkg{Reanalysis} in publications, use the command \code{citation('Reanalysis')} to get the current version of the citation.\cr
 #' The CRHM program is described in:\cr
@@ -11,7 +11,7 @@
 #'The CRHM model may be downloaded from \url{http://www.usask.ca/hydrology/CRHM.php}.\cr
 #' @importFrom stats aggregate na.omit
 #' @importFrom utils data download.file read.csv read.table write.table
-#' @importFrom CRHMr interpolate saturatedVP CRHM_summary logAction win.eol distributeQsi distributeQli vp2rh
+#' @importFrom CRHMr interpolate saturatedVP CRHM_summary logAction win.eol distributeQsi distributeQli vp2rh distributeInst
 #' @importFrom stringr str_detect str_to_lower fixed
 #' @importFrom timeDate timeDate timeSequence
 #' @importFrom zoo na.approx
