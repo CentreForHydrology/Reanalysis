@@ -2,7 +2,7 @@
 % Please edit documentation in R/ERAhourlyVP.R
 \name{ERAhourlyVP}
 \alias{ERAhourlyVP}
-\title{Calculates the hourly vapour pressure from the 3-hour ERA dew point temperature}
+\title{Calculates the hourly vapour pressure from the 3-hour ERA-Interim or 6 hour ERA-40 dew point temperature}
 \usage{
 ERAhourlyVP(ERAd2m, d2mColnum = 1, method = "linear", quiet = TRUE,
   logfile = "")
@@ -22,7 +22,7 @@ ERAhourlyVP(ERAd2m, d2mColnum = 1, method = "linear", quiet = TRUE,
 If successful, returns an obs dataframe containing the interpolated hourly 2m vapour pressures (ea) in kPA. If unsuccessful, returns the value \code{FALSE}.
 }
 \description{
-Interpolates ERA 3-hour instantaneous dew point temperatures to hourly values. The ERA dew point temperatures are first converted from K to \eqn{^\circ}{}C, if required.
+Interpolates ERA instantaneous dew point temperatures to hourly values. The ERA dew point temperatures are first converted from K to \eqn{^\circ}{}C, if required.
 }
 \examples{
 \dontrun{

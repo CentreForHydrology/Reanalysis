@@ -2,7 +2,7 @@
 % Please edit documentation in R/ERAhourlyLongwave.R
 \name{ERAhourlyLongwave}
 \alias{ERAhourlyLongwave}
-\title{Estimates hourly incoming longwave radiation from ERA 3 hourly values}
+\title{Estimates hourly incoming longwave radiation from ERA-Interim 3-hourly values or ERA-40 6-hourly values}
 \usage{
 ERAhourlyLongwave(ERAstrd, strdColnum = 1, ERAt2m, t2mColnum = 1,
   method = "linear", quiet = TRUE, logfile = "")
@@ -26,7 +26,7 @@ ERAhourlyLongwave(ERAstrd, strdColnum = 1, ERAt2m, t2mColnum = 1,
 If successful, returns an obs dataframe containing the interpolated hourly ERA incoming longwave radiation (Qli) in W/m\eqn{^2}{^2}, and the hourly 2m air temperatures (t) in \eqn{^\circ}{}C. If unsuccessful, returns the value \code{FALSE}.
 }
 \description{
-This function is called \emph{after} using the function \code{getNearestERAtimeseries}. This function deaccumulates the 12-hour cumulative values,using the function \code{ERAdeaccum} and interpolates the 3-hour values to hourly values, based on the extra-terrestrial hourly radiation.
+This function is called \emph{after} using the function \code{getNearestERAtimeseries}. This function deaccumulates the ERA-Interim 12-hour cumulative values,using the function \code{ERAdeaccum} and interpolates the 3-hour values to hourly values, based on the extra-terrestrial hourly radiation. ERA-40 6-hourly instantaneous values are interpolated directly to hourly values.
 }
 \examples{
 \dontrun{

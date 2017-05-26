@@ -2,7 +2,7 @@
 % Please edit documentation in R/ERAhourlyWindspeed.R
 \name{ERAhourlyWindspeed}
 \alias{ERAhourlyWindspeed}
-\title{Estimates hourly wind speeds from ERA 3 hourly wind vectors}
+\title{Estimates hourly wind speeds from ERA-Interim 3-hourly or ERA-40 6-hourly wind vectors}
 \usage{
 ERAhourlyWindspeed(ERAu10, u10Colnum = 1, ERAv10, v10Colnum = 1,
   method = "linear", quiet = TRUE, logfile = "")
@@ -26,7 +26,7 @@ ERAhourlyWindspeed(ERAu10, u10Colnum = 1, ERAv10, v10Colnum = 1,
 If successful, returns an obs dataframe containing the interpolated hourly 10m wind speeds (u10) in m/s and directions in degrees. If unsuccessful, returns the value \code{FALSE}.
 }
 \description{
-Estimates hourly wind speeds from ERA 3 hourly wind vectors
+Estimates hourly wind speeds from ERA-Interim 3-hourly or ERA-40 6-hourly wind vectors
 }
 \examples{
 \dontrun{

@@ -5,7 +5,7 @@
 \alias{Reanalysis-package}
 \title{Contains functions to download and process reanalysis data}
 \description{
-The package contains functions to download and process reanalysis data. Functions are provided for ETA, NARR and WATCH datasets. Because there are so many functions and all of the datasets are slightly different, each function has the prefix of its dataset.
+The package contains functions to download and process reanalysis data. Functions are provided for ERA (-Interim and -40), NARR and WATCH datasets. Because there are so many functions and all of the datasets are slightly different, each function name includes the dataset as a prefix.
 }
 \references{
 To cite \pkg{Reanalysis} in publications, use the command \code{citation('Reanalysis')} to get the current version of the citation.\cr
