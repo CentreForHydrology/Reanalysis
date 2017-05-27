@@ -22,7 +22,6 @@ ERAhourlyShortwave <- function(ERAssrd, ssrdColnum=1, latitude,
                                quiet=TRUE, logfile=''){
 
   # check parameters
-
   obsName <- deparse(substitute(ERAssrd))
   if (obsName == ''){
     cat('Error: must specify ssrd dataframe\n')
@@ -78,12 +77,12 @@ ERAhourlyShortwave <- function(ERAssrd, ssrdColnum=1, latitude,
     
     
   } else{
-    deaccum <- ERAdeaccum(ERAssrd, ssrdColnum, quiet=quiet, logfile=logfile)
-    deaccum$ssrd <- deaccum$ssrd / (interval.hours * 3600)
-    
+    # interpolate ERA-40 6-hour instantaneous value to hourly 
+    ERAssrd[,ssrdColnum+1] <- ERAssrd[,ssrdColnum+1] / (interval.hours * 3600)
     maxInterval <- interval.hours + 1
+    
     # downscale longwave
-    hourlyQsi <- CRHMr::distributeInst(deaccum, obsCols = 1, timeStep = 1, 
+    hourlyQsi <- CRHMr::distributeInst(ERAssrd, obsCols = ssrdColnum, timeStep = 1, 
                                       interpolationMethod = interpolationMethod, maxLength = maxInterval,
                                       quiet = quiet, logfile = logfile)
     
