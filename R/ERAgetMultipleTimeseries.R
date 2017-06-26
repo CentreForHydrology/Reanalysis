@@ -101,11 +101,7 @@ ERAgetMultipleLocationTimeseries <- function(ncdfFile, varName, siteNames, outDi
   
   # change poinLons if needed
   pointLons[pointLons < 0] <- pointLons[pointLons < 0] + 360
-  
 
-  # calculate hour offset between timezone and GMT
-  datetime <- '2000-01-01 01:00'
-  s1 <- as.POSIXct(datetime, format='%Y-%m-%d %H:%M', tz='UTC')
   
   nc <-  RNetCDF::open.nc(ncdfFile, write=FALSE)
   # read in values netcdf file
@@ -169,8 +165,7 @@ ERAgetMultipleLocationTimeseries <- function(ncdfFile, varName, siteNames, outDi
     values <- as.vector(all.values[closest.lonpoint, closest.latpoint,])
   
     # convert times to R times
-    s2 <- as.POSIXct(datetime, format='%Y-%m-%d %H:%M', tz=timezone)
-    houroffset <- as.numeric(difftime(s2, s1, units='hours'))  
+    houroffset <- CRHMr::GMToffset(timezone[i])
     secs <- nctimes * 3600.0
     datetime.utc <- as.POSIXct(secs, origin='1900-01-01', tz='UTC')
     datetime = datetime.utc - (houroffset * 3600)

@@ -31,10 +31,7 @@ ERAgetArealPrecip <- function(ncdfFile, timezone='', quiet=TRUE){
   varName <- 'tp'
   
   # calculate hour offset between timezone and GMT
-  datetime <- '2000-01-01 01:00'
-  s1 <- as.POSIXct(datetime, format='%Y-%m-%d %H:%M', tz='UTC')
-  s2 <- as.POSIXct(datetime, format='%Y-%m-%d %H:%M', tz=timezone)
-  houroffset <- as.numeric(difftime(s2, s1, units='hours'))
+  houroffset <- CRHMr::GMToffset(timezone)
   
   nc <-  RNetCDF::open.nc(ncdfFile, write=FALSE)
   nctimes <- RNetCDF::var.get.nc(nc, variable='time', unpack=TRUE)
