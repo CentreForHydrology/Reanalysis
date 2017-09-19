@@ -53,7 +53,7 @@ NARRgetNearestTimeseries <- function(ncdfFile, varName, pointLon, pointLat,
   houroffset <- CRHMr::GMToffset(timezone)
   
   # read all data from file
-  nc <-  RNetCDF::open.nc(ncdfFile, write=FALSE)
+  nc <- RNetCDF::open.nc(ncdfFile, write=FALSE)
   nctimes <- RNetCDF::var.get.nc(nc, variable='time', unpack=TRUE)
   data <- RNetCDF::var.get.nc(nc, variable=varName, unpack=TRUE)
   lons <- RNetCDF::var.get.nc(nc, variable='lon', unpack=TRUE)

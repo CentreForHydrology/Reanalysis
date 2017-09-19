@@ -24,3 +24,6 @@ version 1.0.4 Mon 22 May 2017 09:13:11 AM CST
 
 version 1.05 Fri 26 May 2017 03:12:06 PM CST 
 - ERA functions now work with ERA-40 data as well as ERA-Interim
+
+version 1.1.0 Mon 26 Jun 2017 10:37:44 AM CST 
+- - offset from GMT/UTC now calculated using CRHMr function GMToffset, as upstream changes to R broke the old method
