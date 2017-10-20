@@ -3,7 +3,7 @@
 #' @description Creates a \pkg{CRHMr} data frame of all values from a WRF netCDF file containing t, RH, p, and wind vectors for a \emph{single} location.
 #' @param netCDFfile Required. The name of the netCDF file containing the WRF data.
 #' @param obsfile Optional. If specified the values are written to the \code{obs} file.
-#' @param startDateTime Optional. Date and time of first interval. Format is "yyyy-mm-dd hh:mm".
+#' @param startDatetime Optional. Date and time of first interval. Format is "yyyy-mm-dd hh:mm".
 #' @param timezone Optional. The name of the timezone of the data as a character string. This should be the timezone of your data, but omitting daylight savings time. Note that the timezone code is specific to your OS. To avoid problems, you should use a timezone without daylight savings time. You can use \option{Etc/GMT+6} or \option{Etc/GMT+7} for Central Standard and Mountain Standard time. DO NOT use \option{America/Regina} as the time zone, as it includes historical changes between standard and daylight savings.
 #' @param trim Optional. If \code{TRUE} (the default) then the final output will be trimmed to CRHM day boundaries.
 #' @param quiet Optional. Suppresses display of messages, except for errors. If you are calling this function in an R script, you will usually leave \code{quiet=TRUE} (i.e. the default). If you are working interactively, you will probably want to set \code{quiet=FALSE}.
