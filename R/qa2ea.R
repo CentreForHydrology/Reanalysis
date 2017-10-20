@@ -8,8 +8,8 @@
 #' @references R code for conversion of air pressure and absolute humidity was taken from project PEcAn The Predictive Ecosystem Analyzer \url{http://pecanproject.github.io}. The source code is available at \url{https://github.com/PecanProject/pecan/blob/master/modules/data.atmosphere/R/metutils.R.}
 #' @export
 #'
-#' @examples { ea <- qa2ea(0.9, 101325)
-#' }
+#' @examples ea <- qa2ea(0.001, 101325)
+
 qa2ea <- function(qair, psurf){
 
   # check parameter values
