@@ -1,6 +1,6 @@
 #' Reads a time series for the nearest point from adjusted CanRCM4
 #' @description This function extracts a time series of 3-hourly values from a NetCDF file of CanRCM4 data, which has been bias-corrected using the WFDEI 3-hour reanalysis values. The values are stored at a spatial resolution of 0.125 degees, so the closest point to the specified location will be used. Note that because the reanalysis data omit February 29, the values returned by this function will have \code{NA} values for leap days. You will have to fill these values yourself.\cr Each NetCDF file contains a single variable. Typically the first letters of the file name designate the variable. The variables are converted to values, and variable names, appropriate for CRHM when they are extracted.
-#' #' \tabular{lllr}{
+#' \tabular{lllr}{
 #'\bold{NetCDF parameter} \tab \bold{netCDF units} \tab \bold{CRHM Variable} \tab \bold{CRHM units}\cr
 #'pr - 3hr precip\tab mm/s \tab p \tab mm\cr
 #'tas - surface air temp. \tab K \tab t \tab  \eqn{^\circ}{}C\cr
@@ -8,7 +8,7 @@
 #'sfcWind - surface (10m) wind speed \tab m/s \tab u10 \tab m/s \cr
 #'ps - surface pressure \tab Pa \tab ps \tab Pa \cr
 #'rsds - incoming SW radiation \tab W/\eqn{^2}{^2}  \tab Qsi \tab W/\eqn{^2}{^2} \cr
-#'rlds - incoming LW radiation \tab W/\eqn{^2}{^2}  \tab Qsi \tab W/\eqn{^2}{^2} \cr
+#'rlds - incoming LW radiation \tab W/\eqn{^2}{^2}  \tab Qli \tab W/\eqn{^2}{^2} \cr
 #' }
 #' @param netCDFfile Required. The name of a NetCDF file containing a single variable.
 #' @param longitude Required. The longitude of the point being sought. Valid values appear to be between -90 and -142, but the input value is \emph{not} checked for validity, in case the model extent changes.
@@ -156,7 +156,7 @@ CanRCM4adjustedGetNearestTimeseries <- function(netCDFfile = "",
   # merge
   merged <- merge(empty, df, by = "datetime", all = TRUE)
   
-  datetime = merged$datetime - (houroffset * 3600)
+  datetime = merged$datetime + (houroffset * 3600)
   
   # force timezone
   merged$datetime <- lubridate::force_tz(datetime, tzone = timezone)
