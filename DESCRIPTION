@@ -1,7 +1,7 @@
 Package: Reanalysis
 Type: Package
 Title: Reads reanalysis data for CRHM
-Version: 1.1.1
+Version: 1.2.0
 Date: 2017-10-20
 Author: Kevin Shook, Centre for Hydrology, University of Saskatchewan
 Maintainer: Kevin Shook <kevin.shook@usask.ca>

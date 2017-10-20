@@ -103,7 +103,7 @@ function(nc.location='', startyear=1901, endyear=2001,
       all.values$e <- all.values$Qair * all.values$PSurf / (0.378 * all.values$Qair + 0.622)
       # convert back to kPa and format
       all.values$ea <- all.values$e * 0.1
-      all.values$p <- all.values$Rainf + all.values$Rainf * 10800  # mm/s -> mm
+      all.values$p <- all.values$Rainf + all.values$Snowf * 10800  # mm/s -> mm
       
       all.values$u <- all.values$Wind
       all.values$Qsi <- all.values$SWdown            #dp, added the line

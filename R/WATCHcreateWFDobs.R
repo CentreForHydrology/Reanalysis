@@ -103,7 +103,7 @@ function(nc.location='', startyear=1901, endyear=2001,
       # convert back to kPa and format
       all.values$ea <- format(all.values$e * 0.1, digits=3)
       all.values$p <- format((all.values$Rainf +
-                                all.values$Rainf) * 10800, digits=2) # mm/s -> mm
+                                all.values$Snowf) * 10800, digits=2) # mm/s -> mm
 
       all.values$u <- format(all.values$Wind, digits=2)
       all.values$Qsi <- format(all.values$SWdown, digits=2) #dp, added the line

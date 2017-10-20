@@ -30,3 +30,13 @@ version 1.1.0 Mon 26 Jun 2017 10:37:44 AM CST
 
 version 1.1.1 Fri 20 Oct 2017 10:54:43 AM CST 
 - added CanRCM4adjustedGetNearestTimeseries and qa2ea. Not that this now requires the use of the PCICt package.
+
+version 1.2.0 Fri 20 Oct 2017 01:46:19 PM CST 
+- major bug fixes. Precips returned by 
+    -   WATCHcreateHourlyWFDEIobs
+    -   WATCHcreateHourlyWFDobs
+    -   WATCHcreateWFDEIobs
+    -   WATCHcreateWFDobs
+were incorrect as the rainfall was summed twice and the snowfall was omitted. 
+This appears to have been a version problem as it was suppoed to have been solved on 20 May 2016.
+Please check your code (and data) if you used these functions.

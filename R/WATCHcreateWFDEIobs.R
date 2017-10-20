@@ -96,7 +96,7 @@ function(nc.location='', startyear=1979, endyear=2012,
       all.values$e <- all.values$Qair * all.values$PSurf / (0.378 * all.values$Qair + 0.622)
       # convert back to kPa and format
       all.values$ea <- format(all.values$e * 0.1, digits=3)
-      all.values$p <- format((all.values$Rainf + all.values$Rainf) * 10800,
+      all.values$p <- format((all.values$Rainf + all.values$Snowf) * 10800,
                              digits=2) # mm/s -> mm
 
       all.values$u <- format(all.values$Wind, digits=2)
