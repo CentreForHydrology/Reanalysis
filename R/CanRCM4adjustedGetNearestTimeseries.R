@@ -115,7 +115,7 @@ CanRCM4adjustedGetNearestTimeseries <- function(netCDFfile = "",
   # convert units and set NA values
   if (varName == "pr") {                     # precip
     data[data > 1e19] <- NA_real_
-    data <- data * 1200                      # convert mm/s to mm
+    data <- data * 10800                      # convert mm/s to mm
     CRHMvariable <- "p"
   } else if (varName == "tas") {             # surface air temp
     data[data > 1e19] <- NA_real_
