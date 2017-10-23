@@ -40,3 +40,6 @@ version 1.2.0 Fri 20 Oct 2017 01:46:19 PM CST
 were incorrect as the rainfall was summed twice and the snowfall was omitted. 
 This appears to have been a version problem as it was suppoed to have been solved on 20 May 2016.
 Please check your code (and data) if you used these functions.
+
+version 1.2.1 Mon 23 Oct 2017 02:19:14 PM CST 
+- added CanRCM4UnadjustedGetNearestTimeseries
