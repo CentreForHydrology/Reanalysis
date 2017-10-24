@@ -13,12 +13,12 @@
 qa2ea <- function(qair, psurf){
 
   # check parameter values
-  if (is.null(qair) | (qair == "")) {
+  if (length(qair)  == 0) {
     cat('Error: missing humidities')
     return(FALSE)
   }
   
-  if (is.null(psurf) | (psurf == "")) {
+  if (length(psurf) == 0) {
     cat('Error: missing surface pressures')
     return(FALSE)
   }

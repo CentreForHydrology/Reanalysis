@@ -45,7 +45,7 @@ CanRCM4adjustedGetNearestTimeseries <- function(netCDFfile = "",
   }
   
   if (longitude == 0) {
-    cat('Error: missing latitude\n')
+    cat('Error: missing longitude\n')
     return(FALSE)
   }
   

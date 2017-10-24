@@ -12,7 +12,7 @@
 #' @import PCICt
 #' @importFrom stats aggregate na.omit 
 #' @importFrom utils data download.file read.csv read.table write.table
-#' @importFrom CRHMr interpolate saturatedVP CRHM_summary logAction win.eol distributeQsi distributeQli vp2rh distributeInst
+#' @importFrom CRHMr interpolate saturatedVP CRHM_summary logAction win.eol distributeQsi distributeQli vp2rh distributeInst trimObs
 #' @importFrom stringr str_detect str_to_lower fixed
 #' @importFrom timeDate timeDate timeSequence
 #' @importFrom zoo na.approx
