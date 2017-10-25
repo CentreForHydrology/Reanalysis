@@ -19,7 +19,7 @@ CanRCM4AdjustedCreateHourlyObs(startDate = "1979-01-01",
 
 \item{latitude}{Required. The latitude of the point being sought. Valid values appear to be between 45 and 75, but the input value is \emph{not} checked for validity, in case the model extent changes.}
 
-\item{sunTimeOffset}{Optional. The offset (in hours) is added to the solar time to convert it to local time. The default value \code{2} shifts the daily peak to occur at 2pm.}
+\item{sunTimeOffset}{Optional. The offset (in hours) is added to the solar time to convert it to local time. The default value \code{2} shifts the daily peak to occur at 2pm. This is required to downscale the Qsi values.}
 
 \item{locationName}{Optional. Name for the location. This value is used to construct the name of the output file.}
 

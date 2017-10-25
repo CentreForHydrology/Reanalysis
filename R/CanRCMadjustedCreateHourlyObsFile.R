@@ -4,7 +4,7 @@
 #' @param endDate Optional. Beginning date of data to be extracted. A string formatted as "yyyy-mm-dd". The default value of \option{2100-12-01} is the end of the data.
 #' @param longitude Required. The longitude of the point being sought. Valid values appear to be between -90 and -142, but the input value is \emph{not} checked for validity, in case the model extent changes.
 #' @param latitude Required. The latitude of the point being sought. Valid values appear to be between 45 and 75, but the input value is \emph{not} checked for validity, in case the model extent changes.
-#' @param sunTimeOffset Optional. The offset (in hours) is added to the solar time to convert it to local time. The default value \code{2} shifts the daily peak to occur at 2pm.
+#' @param sunTimeOffset Optional. The offset (in hours) is added to the solar time to convert it to local time. The default value \code{2} shifts the daily peak to occur at 2pm. This is required to downscale the Qsi values.
 #' @param locationName Optional. Name for the location. This value is used to construct the name of the output file.
 #' @param fileStr Optional. The name for the NetCDF .nc files containing the data, exclusive of their path and variable name.
 #' @param inDir Optional. The path to the NetCDF .nc files. Default is the current directory.
@@ -55,6 +55,12 @@ CanRCM4AdjustedCreateHourlyObs <- function(startDate = "1979-01-01",
     cat('Error: missing end date\n')
     return(FALSE)
   }
+  
+  
+  startYear <- as.numeric(format(as.POSIXct(startDate, format = "%Y-%m-%d"), 
+                                 format = "%Y"))
+  endYear <- as.numeric(format(as.POSIXct(endDate, format = "%Y-%m-%d"), 
+                               format = "%Y"))
   
   vars <- c("tas", "pr", "huss", "sfcWind", "ps", "rsds", "rlds")
   CRHMvars <- c("t", "p", "specHum", "u10", "press", "qsi", "qli")
@@ -116,7 +122,8 @@ CanRCM4AdjustedCreateHourlyObs <- function(startDate = "1979-01-01",
                 "p",  "u10", "ea", "qsi", "qli")]
   
   if (write3hour) {
-    obs3hrFile <- paste(outDir, locationName,"_adjusted_3hr_CanRCM4.obs", sep = "")
+    obs3hrFile <- paste(outDir, locationName,"_",startYear,"-",endYear,
+                        "_adjusted_3hr_CanRCM4.obs", sep = "")
     if (!quiet) {
       cat("writing 3-hour obs file to ", obs3hrFile, "\n", sep = "")
     }
@@ -134,8 +141,11 @@ CanRCM4AdjustedCreateHourlyObs <- function(startDate = "1979-01-01",
   numObs <- nrow(obs3hr)
   lastDate <- format(obs3hr$datetime[numObs], format = "%Y-%m-%d")
   
-  hourlyObs <- CRHMr::createObsDataframe(start.date = firstDate, end.date = lastDate,
-                                  timestep = 1, variables = c("t", "p",  "u10", "ea", "qsi", "qli"), timezone = timezone)
+  hourlyObs <- CRHMr::createObsDataframe(start.date = firstDate, 
+                                         end.date = lastDate,
+                                  timestep = 1, 
+                                  variables = c("t", "p",  "u10", "ea", "qsi", "qli"), 
+                                  timezone = timezone)
   
   # create reps of each variable
   colnums <- c(2:7)
@@ -151,15 +161,18 @@ CanRCM4AdjustedCreateHourlyObs <- function(startDate = "1979-01-01",
   
   # distribute Qsi to hourly
   qsi <- CRHMr::distributeQsi(obs3hr, QsiColnum = 5, latitude = latitude,
-                              sunTimeOffset = 2, timeStep = 1, solarMethod = "PotSolarInst")
+                              sunTimeOffset = 2, timeStep = 1, 
+                              solarMethod = "PotSolarInst")
   hourlyObs$qsi <- qsi[,2]
   rm(obs3hr)
   
   # trim
   hourlyObs <- CRHMr::trimObs(hourlyObs)
+
   
   # write obs file
-  obs1hrFile <- paste(outDir, locationName,"_adjusted_1hr_CanRCM4.obs", sep = "")
+  obs1hrFile <- paste(outDir, locationName,"_",startYear,"-",endYear,
+                      "_adjusted_1hr_CanRCM4.obs", sep = "")
   result <- CRHMr::writeObsFile(hourlyObs, obsfile = obs1hrFile, 
                       comment = "CanRCM4 adjusted downscaled to hourly")
   return(result)
