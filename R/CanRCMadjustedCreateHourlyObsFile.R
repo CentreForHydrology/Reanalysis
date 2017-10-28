@@ -115,7 +115,7 @@ CanRCM4AdjustedCreateHourlyObs <- function(startDate = "1979-01-01",
   }  
   
   # convert specific humidity to ea
-  obs3hr$ea <- qa2ea(obs3hr$press, obs3hr$specH)
+  obs3hr$ea <- qa2ea(obs3hr$specH, obs3hr$press)
   
   # select variables and output
   obs3hr <- obs3hr[,c("datetime", "t", 
