@@ -140,7 +140,8 @@ CanRCM4AdjustedCreateHourlyObs <- function(startDate = "1979-01-01",
  
   # downscale all 3-hour means
   
-  hourlyObs <- CRHMr::distributeMean(obs3hr, obsCols = c(1,2,3,4,6))
+  hourlyObs <- CRHMr::distributeMean(obs3hr, obsCols = c(1,2,3,4,6), 
+                                     timeStep = 1)
   
   names(hourlyObs) <- c("datetime", c("t", "p",  "u10", "ea", "qli"))
 
