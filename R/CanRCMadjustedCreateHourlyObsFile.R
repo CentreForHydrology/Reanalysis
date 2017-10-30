@@ -127,7 +127,7 @@ CanRCM4AdjustedCreateHourlyObs <- function(startDate = "1979-01-01",
     if (!quiet) {
       cat("writing 3-hour obs file to ", obs3hrFile, "\n", sep = "")
     }
-    CRHMr::writeObsFile(obs3hr, obs3hrFile, quiet = quiet)    
+    CRHMr::writeObsFile(obs3hr, obs3hrFile, quiet = quiet)
   }
 
   
@@ -137,31 +137,19 @@ CanRCM4AdjustedCreateHourlyObs <- function(startDate = "1979-01-01",
     cat("converting 3-hourly to hourly\n")
   }
   
-  firstDate <- format(obs3hr$datetime[1], format = "%Y-%m-%d")
-  numObs <- nrow(obs3hr)
-  lastDate <- format(obs3hr$datetime[numObs], format = "%Y-%m-%d")
+ 
+  # downscale all 3-hour means
   
-  hourlyObs <- CRHMr::createObsDataframe(start.date = firstDate, 
-                                         end.date = lastDate,
-                                  timestep = 1, 
-                                  variables = c("t", "p",  "u10", "ea", "qsi", "qli"), 
-                                  timezone = timezone)
+  hourlyObs <- CRHMr::distributeMean(obs3hr, obsCols = c(1,2,3,4,6))
   
-  # create reps of each variable
-  colnums <- c(2:7)
-  for (col in colnums) {
-    vals <- obs3hr[,col]
-    reps <- rep(vals, each = 3)
-    hourlyObs[, col] <- reps
-  }
-  names(hourlyObs) <- c("datetime", c("t", "p",  "u10", "ea", "qsi", "qli"))
+  names(hourlyObs) <- c("datetime", c("t", "p",  "u10", "ea", "qli"))
 
   # convert precip by dividing by 3
   hourlyObs$p <- hourlyObs$p / 3
   
   # distribute Qsi to hourly
   qsi <- CRHMr::distributeQsi(obs3hr, QsiColnum = 5, latitude = latitude,
-                              sunTimeOffset = 2, timeStep = 1, 
+                              sunTimeOffset = sunTimeOffset, timeStep = 1, 
                               solarMethod = "PotSolarInst")
   hourlyObs$qsi <- qsi[,2]
   rm(obs3hr)
