@@ -152,11 +152,14 @@ CanRCM4AdjustedCreateHourlyObs <- function(startDate = "1979-01-01",
   qsi <- CRHMr::distributeQsi(obs3hr, QsiColnum = 5, latitude = latitude,
                               sunTimeOffset = sunTimeOffset, timeStep = 1, 
                               solarMethod = "PotSolarInst")
-  hourlyObs$qsi <- qsi[,2]
+  
+  # merge vals
+  merged <- merge(hourlyObs, qsi, by = "datetime", all = FALSE)
+  names(merged) <- c("datetime","t", "p",  "u10", "ea", "qli", "qsi")
   rm(obs3hr)
   
   # trim
-  hourlyObs <- CRHMr::trimObs(hourlyObs)
+  hourlyObs <- CRHMr::trimObs(merged)
 
   
   # write obs file
