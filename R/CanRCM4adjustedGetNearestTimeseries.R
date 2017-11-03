@@ -14,7 +14,7 @@
 #' @param longitude Required. The longitude of the point being sought. Valid values appear to be between -90 and -142, but the input value is \emph{not} checked for validity, in case the model extent changes.
 #' @param latitude Required. The latitude of the point being sought. Valid values appear to be between 45 and 75, but the input value is \emph{not} checked for validity, in case the model extent changes.
 #' @param startDate Optional. Beginning date of data to be extracted. A string formatted as "yyyy-mm-dd". The default value of \option{1979-01-01} is the beginning of the data.
-#' @param endDate Optional. Beginning date of data to be extracted. A string formatted as "yyyy-mm-dd". The default value of \option{2100-12-01} is the end of the data.
+#' @param endDate Optional. Ending date of data to be extracted. A string formatted as "yyyy-mm-dd". The default value of \option{2100-12-01} is the end of the data.
 #' @param timezone Required. The name of the timezone of the data as a character string. This should be the timezone of your data, but omitting daylight savings time. Note that the timezone code is specific to your OS. To avoid problems, you should use a timezone without daylight savings time. Under Linux, you can use \option{CST} and \option{MST} for Central Standard or Mountain Standard time, respectively. Under Windows or OSX, you can use \option{etc/GMT+6} or \option{etc/GMT+7} for Central Standard and Mountain Standard time. DO NOT use \option{America/Regina} as the time zone, as it includes historical changes between standard and daylight savings time.
 #'@param logfile Optional. Name of the file to be used for logging the action. Normally not used.
 #'
@@ -30,7 +30,7 @@ CanRCM4adjustedGetNearestTimeseries <- function(netCDFfile = "",
                       longitude = 0, latitude = 0, 
                       startDate = "1979-01-01",
                       endDate = "2100-12-01",
-                      timezone = "Etc/GMT+7", 
+                      timezone = "", 
                       logfile = "") {
   
   # check parameters
@@ -46,6 +46,11 @@ CanRCM4adjustedGetNearestTimeseries <- function(netCDFfile = "",
   
   if (longitude == 0) {
     cat('Error: missing longitude\n')
+    return(FALSE)
+  }
+  
+  if (timezone == "") {
+    cat('Error: missing time zone\n')
     return(FALSE)
   }
   

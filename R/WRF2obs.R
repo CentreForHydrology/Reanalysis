@@ -42,12 +42,17 @@ WRF2Obs <- function(netCDFfile = "", obsfile = "", startDatetime = "2000-10-01 0
   u10 <- (U10 ^ 2 + V10 ^ 2) ^ 0.5
   p <-  I_RAINNC * 100 + RAINNC
   
-  df1 <- data.frame(nctimes)
-  names(df1) <- "datetime"
-  
+  numVals <- length(T2)
+  dt <- nctimes[2] - nctimes[1] # time step in minutes
+
   startTime <- as.POSIXct(startDatetime, format = "%Y-%m-%d %H:%M", 
                           tz = "UTC")
-  df1$datetime <- (df1$datetime * 60) + startTime
+  timevals <- seq(1, numVals)
+  
+  datetime <- (timevals * 3600) + startTime
+  df1 <- data.frame(datetime)
+  names(df1) <- "datetime"
+
   
   # add data, doing unit conversions
   df1$t <- T2 - 273.15
@@ -74,7 +79,7 @@ WRF2Obs <- function(netCDFfile = "", obsfile = "", startDatetime = "2000-10-01 0
                                    timezone = "UTC", logfile = logfile)
   
   # merge the WRF data into the obs dataframe
-  merged <- merge(df1, df2, by = "datetime", all = TRUE)
+  merged <- merge(df1, df2, by = "datetime", all.y = TRUE)
   
   # delete extra columns
   merged <- merged[,c(1,2,3,4,5)]

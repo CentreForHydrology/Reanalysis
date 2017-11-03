@@ -6,7 +6,7 @@
 \usage{
 CanRCM4adjustedGetNearestTimeseries(netCDFfile = "", longitude = 0,
   latitude = 0, startDate = "1979-01-01", endDate = "2100-12-01",
-  timezone = "Etc/GMT+7", logfile = "")
+  timezone = "", logfile = "")
 }
 \arguments{
 \item{netCDFfile}{Required. The name of a NetCDF file containing a single variable.}
@@ -17,7 +17,7 @@ CanRCM4adjustedGetNearestTimeseries(netCDFfile = "", longitude = 0,
 
 \item{startDate}{Optional. Beginning date of data to be extracted. A string formatted as "yyyy-mm-dd". The default value of \option{1979-01-01} is the beginning of the data.}
 
-\item{endDate}{Optional. Beginning date of data to be extracted. A string formatted as "yyyy-mm-dd". The default value of \option{2100-12-01} is the end of the data.}
+\item{endDate}{Optional. Ending date of data to be extracted. A string formatted as "yyyy-mm-dd". The default value of \option{2100-12-01} is the end of the data.}
 
 \item{timezone}{Required. The name of the timezone of the data as a character string. This should be the timezone of your data, but omitting daylight savings time. Note that the timezone code is specific to your OS. To avoid problems, you should use a timezone without daylight savings time. Under Linux, you can use \option{CST} and \option{MST} for Central Standard or Mountain Standard time, respectively. Under Windows or OSX, you can use \option{etc/GMT+6} or \option{etc/GMT+7} for Central Standard and Mountain Standard time. DO NOT use \option{America/Regina} as the time zone, as it includes historical changes between standard and daylight savings time.}
 
