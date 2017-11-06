@@ -1,31 +1,30 @@
-#' Gets CRHM obs veriables closest to specified point
-#' @description Creates a \pkg{CRHMr} data frame of all values from a WRF netCDF file for a specified location.
+#' Extracts CRHM obs veriables for WRF NetCDF of single specified location
+#' @description Creates a \pkg{CRHMr} data frame of all values from a WRF netCDF file for a specified location. Note that the location refers to the location within the NetCDF, not to the site longitude and latitude.
 #' @param netCDFfile Required. The name of the netCDF file containing the WRF data.
 #' @param obsfile Optional. If specified the values are written to the \code{obs} file.
-#' @param longitude Required. The longitude of the point being sought. The input value is \emph{not} checked for validity, in case the model extent changes.
-#' @param latitude Required. The latitude of the point being sought. The input value is \emph{not} checked for validity, in case the model extent changes.
+#' @param startDatetime Optional. Beginning datetime of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2000-10-01 00:00}.
+#' @param endDatetime Optional. Endning datetime of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2100-12-01 23:00}.
+#' @param west_east_loc Optional. The NetCDF west_east location as an integer. The default value of \code{1} specifies the westernmost location.
+#' @param south_north_loc Optional. The NetCDF south_north location as an integer. The default value of \code{1} specifies the southernernmost location.
 #' @param airPressure Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDf file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated.' @param endDatetime Optional. Ending date of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2100-12-01 23:00}.
-#' @param startDatetime Optional. Beginning date of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2000-10-01 00:00}.
-#' @param endDatetime Optional. Ending date of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2100-12-01 23:00}.
 #' @param timezone Required. The name of the timezone of the data as a character string. This should be the timezone of your data, but omitting daylight savings time. Note that the timezone code is specific to your OS. To avoid problems, you should use a timezone without daylight savings time. Under Linux, you can use \option{CST} and \option{MST} for Central Standard or Mountain Standard time, respectively. Under Windows or OSX, you can use \option{etc/GMT+6} or \option{etc/GMT+7} for Central Standard and Mountain Standard time. DO NOT use \option{America/Regina} as the time zone, as it includes historical changes between standard and daylight savings time.
 #' @param trim Optional. If \code{TRUE} (the default) then the final output will be trimmed to CRHM day boundaries.
 #' @param quiet Optional. Suppresses display of messages, except for errors. If you are calling this function in an R script, you will usually leave \code{quiet=TRUE} (i.e. the default). If you are working interactively, you will probably want to set \code{quiet=FALSE}.
 #' @param logfile Optional. Name of the file to be used for logging the action. Normally not used.
-#' @return If successful, returns the value \code{TRUE} and (optionaly) writes the specified .obs file. If unsuccessful, returns the value \code{FALSE}.
+#' @return If successful, returns the valu \code{TRUE} and (optionaly) writes the specified .obs file. If unsuccessful, returns the value \code{FALSE}.
 #'
-#' @return If successfl, returns either \code{TRUE} (if an obs file is specified) or a \pkg{CRHMr} obs data frame (if no obs file is specified). If unsucessful, retuns \code{FALSE}. 
+#' @return If successful, returns either \code{TRUE} (if an obs file is specified) or a \pkg{CRHMr} obs data frame (if no obs file is specified). The data frame will contain the standard CRHM variables: t, p, u, either rh or ea, qsi, and qli, depending on their presence in the NetCDF. If unsucessful, retuns \code{FALSE}. 
 #' @export
 #'
-#' @examples \dontrun{ f <- "wrf2d_tquvr.nc"
-#' r <- WRFnearest2obs(f, longitude=-115.27, 
-#' latitude=52.03,  startDatetime = "1980-01-01 00:00", endDate="1980-12-31 23:00")
-#' }
-WRFnearest2obs <- function(netCDFfile = "", obsfile = "", 
-                           longitude = 0,
-                           latitude = 0,
-                           airPressure = 0,
+#' @examples \dontrun{f <- "wrf2d_tquvr.nc"
+#' r <- WRFbyloc2Obs(f, startDatetime = "1980-01-01 00:00", endDate="1980-12-31 23:00")}
+#' 
+WRFbyloc2obs <- function(netCDFfile = "", obsfile = "", 
                            startDatetime = "2000-10-01 00:00",
                            endDatetime = "2100-12-01 23:00",
+                           west_east_loc = 1,
+                           south_north_loc = 1,
+                           airPressure = 0,
                            timezone = "", 
                            trim = TRUE, 
                            quiet = TRUE, 
@@ -45,16 +44,7 @@ WRFnearest2obs <- function(netCDFfile = "", obsfile = "",
   # calculate hour offset between timezone and GMT
   houroffset <- CRHMr::GMToffset(timezone)
   
-  if (latitude == 0) {
-    cat('Error: missing latitude\n')
-    return(FALSE)
-  }
-  
-  if (longitude == 0) {
-    cat('Error: missing latitude\n')
-    return(FALSE)
-  }
-  
+
   if (timezone == "") {
     cat('Error: missing time zone\n')
     return(FALSE)
@@ -68,70 +58,18 @@ WRFnearest2obs <- function(netCDFfile = "", obsfile = "",
   x_count <- nc$dim$west_east$len
   y_count <- nc$dim$south_north$len
   
-  # extract projection info
-  projType <- ncdf4::ncatt_get(nc, varid = 0, attname = "MAP_PROJ_CHAR")$value
-  if (projType != "Lambert Conformal") {
-    cat("Error: projection is ", projType, ". Don't know how to reproject\n", sep = "")
+  if (west_east_loc > x_count) {
+    cat('Error: value of west_east_loc, ', west_east_loc, ', is greater than\n', sep = "")
+    cat("number of locations, ", x_count, ", in file ", netCDFfile, "\n", sep = "")
     return(FALSE)
   }
   
-  dx <- ncdf4::ncatt_get(nc, varid = 0, attname = "DX")$value
-  dy <- ncdf4::ncatt_get(nc, varid = 0, attname = "DY")$value
-  cen_lat <- ncdf4::ncatt_get(nc, varid = 0, attname = "CEN_LAT")$value
-  cen_lon <- ncdf4::ncatt_get(nc, varid = 0, attname = "CEN_LON")$value 
-  truelat1 <- ncdf4::ncatt_get(nc, varid = 0, attname = "TRUELAT1")$value
-  truelat2 <- ncdf4::ncatt_get(nc, varid = 0, attname = "TRUELAT2")$value
-  stand_lon <- ncdf4::ncatt_get(nc, varid = 0, attname = "STAND_LON")$value
+  if (south_north_loc > y_count) {
+    cat('Error: value of south_north_loc, ', south_north_loc, ', is greater than\n', sep = "")
+    cat("number of locations, ", y_count, ", in file ", netCDFfile, "\n", sep = "")
+    return(FALSE)
+  }
   
-  # assemble proj4 string
-  proj4string <- paste("+proj=lcc +lon 0=",
-                       stand_lon,"e +lat 1=",truelat1,
-                       "n +lat 2=",truelat2,"n", sep = "")
-  
-  # get locations of center point and specified point
-  xy1 <- list(cen_lon, cen_lat)
-  projected1 <- proj4::project(xy1, proj = proj4string)
-  center_x <- projected1$x
-  center_y <- projected1$y
-  
-  xy2 <- list(longitude, latitude)
-  projected2 <- proj4::project(xy2, proj = proj4string)
-  specified_x <- projected2$x
-  specified_y <- projected2$y
-  
-  
-  # assemble array of locations
-  maxx <- floor(x_count / 2)
-  minx <- -maxx
-  maxy <- floor(y_count / 2)
-  miny <- -maxy
-  
-  xseq <- seq(minx, maxx)
-  yseq <- seq(miny, maxy)
-  
-  xlocs <- center_x + (xseq * dx)
-  ylocs <- center_y + (yseq * dy)
-  
-  all_x <-  rep(xlocs, each = y_count)
-  all_x_locs <- rep(seq(1:x_count), each = y_count)
-  
-  all_y <-  rep(ylocs, each = x_count)
-  all_y_locs <- rep(seq(1:y_count), each = x_count)
-  
-  all_locs <- data.frame(all_x_locs, all_x, all_y_locs, all_y)
-  
-  # now get distance
-  all_locs$x_distance <- (all_locs$all_x - specified_x) ^ 2
-  all_locs$y_distance <- (all_locs$all_y - specified_y) ^ 2
-  all_locs$distance <- (all_locs$x_distance + all_locs$y_distance) ^ 0.5
-  
-  # get minimum
-  minpoint <- which.min(all_locs$distance)
-  min_distance <- min(all_locs$distance) / 1000
-  closest_x <- all_locs$all_x[minpoint]
-  closest_y <- all_locs$all_y[minpoint]
-  closest_x_loc <- all_locs$all_x_locs[minpoint]
-  closest_y_loc <- all_locs$all_y_locs[minpoint]
   
   # figure out time
   data_start_date <- ncdf4::ncatt_get(nc, varid = 0, 
@@ -146,7 +84,7 @@ WRFnearest2obs <- function(netCDFfile = "", obsfile = "",
   selected_end_datetime <- as.POSIXct(endDatetime, 
                                         format = "%Y-%m-%d %H:%M",
                                         TZ = "UTC")
-  
+
   
   
   # now extract values
@@ -240,57 +178,59 @@ WRFnearest2obs <- function(netCDFfile = "", obsfile = "",
   
   if (Q2_exists) {
     Q2 <- as.numeric(ncdf4::ncvar_get(nc, varid = "Q2", 
-                                      start = c(closest_x_loc , closest_y_loc , 
+                                      start = c(west_east_loc, south_north_loc, 
                                                 startPoint), 
                                       count = c(1, 1, numVals)))
   }
   
   if (T2_exists) {
     T2 <- as.numeric(ncdf4::ncvar_get(nc, varid = "T2", 
-                                      start = c(closest_x_loc , closest_y_loc , 
+                                      start = c(west_east_loc, south_north_loc,
                                                 startPoint), 
                                       count = c(1, 1, numVals)))
   }
   
   if (wind_exists) {
     U10 <- as.numeric(ncdf4::ncvar_get(nc, varid = "U10", 
-                                       start = c(closest_x_loc , closest_y_loc , 
+                                       start = c(west_east_loc, south_north_loc,
                                                  startPoint), 
                                        count = c(1, 1, numVals)))
+    
     V10 <- as.numeric(ncdf4::ncvar_get(nc, varid = "V10",  
-                                       start = c(closest_x_loc , closest_y_loc , 
+                                       start = c(west_east_loc, south_north_loc,
                                                  startPoint), 
                                        count = c(1, 1, numVals)))
   }
   
   if (precip_exists) {
     I_RAINNC <- as.numeric(ncdf4::ncvar_get(nc, varid = "I_RAINNC",
-                                    start = c(closest_x_loc , closest_y_loc , 
-                                              startPoint), 
+                                        start = c(west_east_loc, south_north_loc,
+                                                  startPoint), 
                                     count = c(1, 1, numVals)))
 
     RAINNC <- as.numeric(ncdf4::ncvar_get(nc, varid = "RAINNC",
-                                      start = c(closest_x_loc , closest_y_loc , 
+                                       start = c(west_east_loc, south_north_loc,
                                                 startPoint), 
                                       count = c(1, 1, numVals)))
   }
 
   if (SWDOWN_exists) {
     QSI <- as.numeric(ncdf4::ncvar_get(nc, varid = "SWDOWN", 
-                                      start = c(closest_x_loc , closest_y_loc , 
+                                       start = c(west_east_loc, south_north_loc,
                                                 startPoint), 
                                       count = c(1, 1, numVals)))
   }
   
-  if (length(grep("GLW", var_names)) > 0) {
-    GLW_exists <- TRUE
-  } else {
-    GLW_exists <- FALSE
+  if (GLW_exists) {
+    QLI <- as.numeric(ncdf4::ncvar_get(nc, varid = "GLW", 
+                                       start = c(west_east_loc, south_north_loc,
+                                                 startPoint), 
+                                       count = c(1, 1, numVals)))
   }
   
   if (PSFC_exists) {
     PSFC <- as.numeric(ncdf4::ncvar_get(nc, varid = "PSFC", 
-                                       start = c(closest_x_loc , closest_y_loc , 
+                                       start = c(west_east_loc, south_north_loc,
                                                  startPoint), 
                                        count = c(1, 1, numVals)))
   }
@@ -334,11 +274,11 @@ WRFnearest2obs <- function(netCDFfile = "", obsfile = "",
       # convert Q to RH 
       df1$rh <- CRHMr::qair2rh(Q2, df1$t, PSFC) * 100
     } else if (airPressure > 0 ) {
-      df1$rh <- CRHMr::qair2rh(Q2, df1$t, airPressure) * 100
-    }
-    else (
-      cat("Error - cannot calculate RH without air pressure\n")
-    )
+     df1$rh <- CRHMr::qair2rh(Q2, df1$t, airPressure) * 100
+   }
+   else (
+     cat("Error - cannot calculate RH without air pressure\n")
+   )
     
   }
   
@@ -348,9 +288,9 @@ WRFnearest2obs <- function(netCDFfile = "", obsfile = "",
     }
     if ((airPressure <= 0) & PSFC_exists) {
       # convert Q to RH 
-      df1$ea <- CRHMr::qair2ea(Q2, PSFC) * 100
+      df1$ea <- CRHMr::qair2ea(Q2, PSFC )
     } else if (airPressure > 0 ) {
-      df1$ea <- CRHMr::qair2ea(Q2, airPressure) * 100
+      df1$ea <- CRHMr::qair2ea(Q2, airPressure)
     }
     else {
       cat("Error - cannot calculate RH without air pressure\n")
@@ -362,11 +302,9 @@ WRFnearest2obs <- function(netCDFfile = "", obsfile = "",
   }  
   
   if (GLW_exists) {
-    df1$qli <- QSI
-  } 
+    df1$qli <- QLI
+  }  
   
-  var_names <- names(df1)
-
 
   # figure out the start and end dates
   startDate <- as.Date(startDatetime)
@@ -397,21 +335,11 @@ WRFnearest2obs <- function(netCDFfile = "", obsfile = "",
     df <- CRHMr::trimObs(merged, quiet, logfile )
   else
     df <- merged
-  
-  # write comment showing actual location
-  # project closest grid point to long, lat
-  
-  closestloc <- list(closest_x_loc, closest_y_loc)
-  closest_unprojected <- proj4::project(closestloc, proj = proj4string,
-                                        inverse = TRUE)
-  comment <- paste("WRF hourly data. Extracted lon,lat", 
-                   closest_unprojected[[1]], 
-        ",", closest_unprojected[[2]], " distance from specified: ",
-        min_distance, " km", sep = "")
+                                      
+  comment <- "WRF hourly data"
   
   if (obsfile != "") {
-    result <- CRHMr::writeObsFile(df, obsfile, comment = comment, quiet, 
-                                  logfile)
+    result <- CRHMr::writeObsFile(df, obsfile, comment = comment, quiet, logfile)
     if (!result)
       return(result)
     else

@@ -15,7 +15,7 @@
 #'
 #' @return If successful, writes \pkg{CRHMr} obs file(s) and returns \code{TRUE}. If unsuccessful, returns \code{FALSE}.
 #' @export
-#' @seealso \code{\link{CanRCM4adjustedGetNearestTimeseries}} \code{\link{qa2ea}}
+#' @seealso \code{\link{CanRCM4adjustedGetNearestTimeseries}}
 #'
 #' @examples \dontrun{CanRCM4AdjustedCreateHourlyObs(startDate = "1980-01-01", 
 #' endDate = "1980-12-31", longitude = -101.704683, latitude = 50.845585, 
@@ -115,7 +115,7 @@ CanRCM4AdjustedCreateHourlyObs <- function(startDate = "1979-01-01",
   }  
   
   # convert specific humidity to ea
-  obs3hr$ea <- qa2ea(obs3hr$specH, obs3hr$press)
+  obs3hr$ea <- CRHMr::qair2ea(obs3hr$specH, obs3hr$press)
   
   # select variables and output
   obs3hr <- obs3hr[,c("datetime", "t", 

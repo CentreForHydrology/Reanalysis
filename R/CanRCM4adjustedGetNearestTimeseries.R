@@ -20,7 +20,6 @@
 #'
 #' @return If successful, returns a standard \pkg{CRHMr} data frame containing the datetime and the variable. If unsuccessful, returns the value \code{FALSE}.
 #' @export
-#' @seealso \code{\link{qa2ea}}
 #'
 #' @examples \dontrun{ f <- "ps_CanRCM4_hist+fut_1979_2100.nc4"
 #' r <- RCM4adjustedGetNearestTimeseries(f, longitude=-115.27, 

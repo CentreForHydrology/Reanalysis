@@ -45,6 +45,3 @@ r <- RCM4adjustedGetNearestTimeseries(f, longitude=-115.27,
 latitude=52.03,  startDate = "1980-01-01", endDate="1980-12-31")
 }
 }
-\seealso{
-\code{\link{qa2ea}}
-}

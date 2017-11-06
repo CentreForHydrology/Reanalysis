@@ -48,5 +48,5 @@ locationName = "SmithCreek")
 }
 }
 \seealso{
-\code{\link{CanRCM4adjustedGetNearestTimeseries}} \code{\link{qa2ea}}
+\code{\link{CanRCM4adjustedGetNearestTimeseries}}
 }
