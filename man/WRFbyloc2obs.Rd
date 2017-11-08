@@ -2,15 +2,15 @@
 % Please edit documentation in R/WRFbyloc2obs.R
 \name{WRFbyloc2obs}
 \alias{WRFbyloc2obs}
-\title{Extracts CRHM obs veriables for WRF NetCDF of single specified location}
+\title{Extracts CRHM obs variables from a WRF NetCDF at a single specified location}
 \usage{
-WRFbyloc2obs(netCDFfile = "", obsfile = "",
+WRFbyloc2obs(NetCDF = "", obsfile = "",
   startDatetime = "2000-10-01 00:00", endDatetime = "2100-12-01 23:00",
   west_east_loc = 1, south_north_loc = 1, airPressure = 0,
   timezone = "", trim = TRUE, quiet = TRUE, logfile = "")
 }
 \arguments{
-\item{netCDFfile}{Required. The name of the netCDF file containing the WRF data.}
+\item{NetCDF}{Required. The name of the NetCDF containing the WRF data.}
 
 \item{obsfile}{Optional. If specified the values are written to the \code{obs} file.}
 
@@ -22,7 +22,7 @@ WRFbyloc2obs(netCDFfile = "", obsfile = "",
 
 \item{south_north_loc}{Optional. The NetCDF south_north location as an integer. The default value of \code{1} specifies the southernernmost location.}
 
-\item{airPressure}{Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDf file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated.' @param endDatetime Optional. Ending date of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2100-12-01 23:00}.}
+\item{airPressure}{Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDF file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated.}
 
 \item{timezone}{Required. The name of the timezone of the data as a character string. This should be the timezone of your data, but omitting daylight savings time. Note that the timezone code is specific to your OS. To avoid problems, you should use a timezone without daylight savings time. Under Linux, you can use \option{CST} and \option{MST} for Central Standard or Mountain Standard time, respectively. Under Windows or OSX, you can use \option{etc/GMT+6} or \option{etc/GMT+7} for Central Standard and Mountain Standard time. DO NOT use \option{America/Regina} as the time zone, as it includes historical changes between standard and daylight savings time.}
 
@@ -35,13 +35,19 @@ WRFbyloc2obs(netCDFfile = "", obsfile = "",
 \value{
 If successful, returns the valu \code{TRUE} and (optionaly) writes the specified .obs file. If unsuccessful, returns the value \code{FALSE}.
 
-If successful, returns either \code{TRUE} (if an obs file is specified) or a \pkg{CRHMr} obs data frame (if no obs file is specified). The data frame will contain the standard CRHM variables: t, p, u, either rh or ea, qsi, and qli, depending on their presence in the NetCDF. If unsucessful, retuns \code{FALSE}.
+If successful, returns either \code{TRUE} (if an obs file is specified) or a \pkg{CRHMr} obs data frame (if no obs file is specified). The data frame will contain the standard CRHM variables: t, p, u, either rh or ea, qsi, and qli, depending on their presence in the NetCDF. If unsucessful, returns \code{FALSE}.
 }
 \description{
-Creates a \pkg{CRHMr} data frame of all values from a WRF netCDF file for a specified location. Note that the location refers to the location within the NetCDF, not to the site longitude and latitude.
+This function is intended to work with NetCDF created by the research group of Dr. Yanping Li of Global Water Futures \url{gwf.usask.ca}. This function creates a \pkg{CRHMr} data frame from a WRF NetCDF specified by their location within the file. This function will work even if there are only values for a single location inside the NetCDF.
 }
 \examples{
 \dontrun{f <- "wrf2d_tquvr.nc"
-r <- WRFbyloc2Obs(f, startDatetime = "1980-01-01 00:00", endDate="1980-12-31 23:00")}
+r <- WRFbyloc2Obs(f, startDatetime = "1980-01-01 00:00", endDatetime = "1980-12-31 23:00")}
 
+}
+\seealso{
+\code{\link{WRFnearest2obs}}
+}
+\author{
+Kevin Shook
 }

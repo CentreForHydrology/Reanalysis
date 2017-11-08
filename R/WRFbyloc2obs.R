@@ -1,25 +1,26 @@
-#' Extracts CRHM obs veriables for WRF NetCDF of single specified location
-#' @description Creates a \pkg{CRHMr} data frame of all values from a WRF netCDF file for a specified location. Note that the location refers to the location within the NetCDF, not to the site longitude and latitude.
-#' @param netCDFfile Required. The name of the netCDF file containing the WRF data.
+#' Extracts CRHM obs variables from a WRF NetCDF at a single specified location
+#' @description This function is intended to work with NetCDF created by the research group of Dr. Yanping Li of Global Water Futures \url{gwf.usask.ca}. This function creates a \pkg{CRHMr} data frame from a WRF NetCDF specified by their location within the file. This function will work even if there are only values for a single location inside the NetCDF.
+#' @param NetCDF Required. The name of the NetCDF containing the WRF data.
 #' @param obsfile Optional. If specified the values are written to the \code{obs} file.
 #' @param startDatetime Optional. Beginning datetime of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2000-10-01 00:00}.
 #' @param endDatetime Optional. Endning datetime of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2100-12-01 23:00}.
 #' @param west_east_loc Optional. The NetCDF west_east location as an integer. The default value of \code{1} specifies the westernmost location.
 #' @param south_north_loc Optional. The NetCDF south_north location as an integer. The default value of \code{1} specifies the southernernmost location.
-#' @param airPressure Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDf file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated.' @param endDatetime Optional. Ending date of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2100-12-01 23:00}.
+#' @param airPressure Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDF file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated.
 #' @param timezone Required. The name of the timezone of the data as a character string. This should be the timezone of your data, but omitting daylight savings time. Note that the timezone code is specific to your OS. To avoid problems, you should use a timezone without daylight savings time. Under Linux, you can use \option{CST} and \option{MST} for Central Standard or Mountain Standard time, respectively. Under Windows or OSX, you can use \option{etc/GMT+6} or \option{etc/GMT+7} for Central Standard and Mountain Standard time. DO NOT use \option{America/Regina} as the time zone, as it includes historical changes between standard and daylight savings time.
 #' @param trim Optional. If \code{TRUE} (the default) then the final output will be trimmed to CRHM day boundaries.
 #' @param quiet Optional. Suppresses display of messages, except for errors. If you are calling this function in an R script, you will usually leave \code{quiet=TRUE} (i.e. the default). If you are working interactively, you will probably want to set \code{quiet=FALSE}.
 #' @param logfile Optional. Name of the file to be used for logging the action. Normally not used.
 #' @return If successful, returns the valu \code{TRUE} and (optionaly) writes the specified .obs file. If unsuccessful, returns the value \code{FALSE}.
-#'
-#' @return If successful, returns either \code{TRUE} (if an obs file is specified) or a \pkg{CRHMr} obs data frame (if no obs file is specified). The data frame will contain the standard CRHM variables: t, p, u, either rh or ea, qsi, and qli, depending on their presence in the NetCDF. If unsucessful, retuns \code{FALSE}. 
+#' @author Kevin Shook
+#' @return If successful, returns either \code{TRUE} (if an obs file is specified) or a \pkg{CRHMr} obs data frame (if no obs file is specified). The data frame will contain the standard CRHM variables: t, p, u, either rh or ea, qsi, and qli, depending on their presence in the NetCDF. If unsucessful, returns \code{FALSE}.
+#' @seealso \code{\link{WRFnearest2obs}}
 #' @export
 #'
 #' @examples \dontrun{f <- "wrf2d_tquvr.nc"
-#' r <- WRFbyloc2Obs(f, startDatetime = "1980-01-01 00:00", endDate="1980-12-31 23:00")}
+#' r <- WRFbyloc2Obs(f, startDatetime = "1980-01-01 00:00", endDatetime = "1980-12-31 23:00")}
 #' 
-WRFbyloc2obs <- function(netCDFfile = "", obsfile = "", 
+WRFbyloc2obs <- function(NetCDF = "", obsfile = "", 
                            startDatetime = "2000-10-01 00:00",
                            endDatetime = "2100-12-01 23:00",
                            west_east_loc = 1,
@@ -35,7 +36,7 @@ WRFbyloc2obs <- function(netCDFfile = "", obsfile = "",
 
   
   # check parameters
-  if (netCDFfile == '') {
+  if (NetCDF == '') {
     cat('Error: missing input netCDF file name\n')
     return(FALSE)
   }
@@ -44,15 +45,13 @@ WRFbyloc2obs <- function(netCDFfile = "", obsfile = "",
   # calculate hour offset between timezone and GMT
   houroffset <- CRHMr::GMToffset(timezone)
   
-
   if (timezone == "") {
     cat('Error: missing time zone\n')
     return(FALSE)
   }
   
   # read in netCDF data
-  nc <- ncdf4::nc_open(netCDFfile, write = FALSE)
-  
+  nc <- ncdf4::nc_open(NetCDF, write = FALSE)
   
   # create dataframe of x and y values
   x_count <- nc$dim$west_east$len
@@ -60,13 +59,13 @@ WRFbyloc2obs <- function(netCDFfile = "", obsfile = "",
   
   if (west_east_loc > x_count) {
     cat('Error: value of west_east_loc, ', west_east_loc, ', is greater than\n', sep = "")
-    cat("number of locations, ", x_count, ", in file ", netCDFfile, "\n", sep = "")
+    cat("number of locations, ", x_count, ", in file ", NetCDF, "\n", sep = "")
     return(FALSE)
   }
   
   if (south_north_loc > y_count) {
     cat('Error: value of south_north_loc, ', south_north_loc, ', is greater than\n', sep = "")
-    cat("number of locations, ", y_count, ", in file ", netCDFfile, "\n", sep = "")
+    cat("number of locations, ", y_count, ", in file ", NetCDF, "\n", sep = "")
     return(FALSE)
   }
   
@@ -85,28 +84,31 @@ WRFbyloc2obs <- function(netCDFfile = "", obsfile = "",
                                         format = "%Y-%m-%d %H:%M",
                                         TZ = "UTC")
 
-  
-  
-  # now extract values
-  nctimes <- as.numeric(ncdf4::ncvar_get(nc, varid = 'XTIME', raw_datavals = FALSE))
-  dt <- nctimes[2] - nctimes[1]   # minutes
-
-  timeLocs <- seq(1, length(nctimes))
-  data_datetime <- timeLocs * (dt * 60) + data_start_datetime  
-  timeDF <- data.frame(timeLocs, data_datetime)
-
-  selected_times <- timeDF[(timeDF$data_datetime >= selected_start_datetime) &
-                          (timeDF$data_datetime <= selected_end_datetime),] 
-  
-  startPoint <- selected_times[1,1]
-  numVals <- nrow(selected_times)
-  
   # get variable names
   num_vars <- as.numeric(nc$nvars)
    for (i in 1:num_vars) {
      var_names[i] <- nc$var[[i]]$name
    }
   
+  nctimes <- nc$dim$Time$vals
+  dt <- nctimes[2] - nctimes[1]   # minutes
+  
+  timeLocs <- seq(1, length(nctimes))
+  data_datetime <- timeLocs * (dt * 3600) + data_start_datetime  
+  timeDF <- data.frame(timeLocs, data_datetime)
+  
+  selected_times <- timeDF[(timeDF$data_datetime >= selected_start_datetime) &
+                             (timeDF$data_datetime <= selected_end_datetime),] 
+  
+  startPoint <- selected_times[1,1]
+  numVals <- nrow(selected_times)
+  
+  if (is.na(startPoint)) {
+    cat('Error: specified start or end datetimes not found in NetCDF\n')
+    return(FALSE)
+  }
+  
+ 
   # get values, if they exist
   if (length(grep("Q2", var_names)) > 0) {
     Q2_exists <- TRUE
@@ -259,7 +261,6 @@ WRFbyloc2obs <- function(netCDFfile = "", obsfile = "",
     names(accum) <- c("datetime", "p")
     deaccum <- CRHMr::weighingGaugeInterval(accum)
     df1$p <- deaccum$p_interval
-    
   }
   
   if (T2_exists) {
@@ -287,13 +288,13 @@ WRFbyloc2obs <- function(netCDFfile = "", obsfile = "",
       cat('No air temperature, so cannot calculate RH, so will calculate ea\n')
     }
     if ((airPressure <= 0) & PSFC_exists) {
-      # convert Q to RH 
+      # convert Q to ea 
       df1$ea <- CRHMr::qair2ea(Q2, PSFC )
     } else if (airPressure > 0 ) {
       df1$ea <- CRHMr::qair2ea(Q2, airPressure)
     }
     else {
-      cat("Error - cannot calculate RH without air pressure\n")
+      cat("Error - cannot calculate ea without air pressure\n")
     }
   }
 

@@ -2,7 +2,7 @@ Package: Reanalysis
 Type: Package
 Title: Reads reanalysis data for CRHM
 Version: 1.2.4
-Date: 2017-11-05
+Date: 2017-11-08
 Author: Kevin Shook, Centre for Hydrology, University of Saskatchewan
 Maintainer: Kevin Shook <kevin.shook@usask.ca>
 Description: Functions to read and process files of reanalysis data from WATCH, ERA and NARR.

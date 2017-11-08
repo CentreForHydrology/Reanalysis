@@ -2,15 +2,15 @@
 % Please edit documentation in R/WRFnearest2obs.R
 \name{WRFnearest2obs}
 \alias{WRFnearest2obs}
-\title{Gets CRHM obs veriables closest to specified point}
+\title{Extracts CRHM obs variables from a WRF NetCDF closest to specified point}
 \usage{
-WRFnearest2obs(netCDFfile = "", obsfile = "", longitude = 0,
-  latitude = 0, airPressure = 0, startDatetime = "2000-10-01 00:00",
+WRFnearest2obs(NetCDF = "", obsfile = "", longitude = 0, latitude = 0,
+  airPressure = 0, startDatetime = "2000-10-01 00:00",
   endDatetime = "2100-12-01 23:00", timezone = "", trim = TRUE,
   quiet = TRUE, logfile = "")
 }
 \arguments{
-\item{netCDFfile}{Required. The name of the netCDF file containing the WRF data.}
+\item{NetCDF}{Required. The name of the netCDF file containing the WRF data.}
 
 \item{obsfile}{Optional. If specified the values are written to the \code{obs} file.}
 
@@ -18,7 +18,7 @@ WRFnearest2obs(netCDFfile = "", obsfile = "", longitude = 0,
 
 \item{latitude}{Required. The latitude of the point being sought. The input value is \emph{not} checked for validity, in case the model extent changes.}
 
-\item{airPressure}{Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDf file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated.' @param endDatetime Optional. Ending date of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2100-12-01 23:00}.}
+\item{airPressure}{Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDf file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated.}
 
 \item{startDatetime}{Optional. Beginning date of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2000-10-01 00:00}.}
 
@@ -34,15 +34,19 @@ WRFnearest2obs(netCDFfile = "", obsfile = "", longitude = 0,
 }
 \value{
 If successful, returns the value \code{TRUE} and (optionaly) writes the specified .obs file. If unsuccessful, returns the value \code{FALSE}.
-
-If successfl, returns either \code{TRUE} (if an obs file is specified) or a \pkg{CRHMr} obs data frame (if no obs file is specified). If unsucessful, retuns \code{FALSE}.
 }
 \description{
-Creates a \pkg{CRHMr} data frame of all values from a WRF netCDF file for a specified location.
+This function is intended to work with NetCDF created by the research group of Dr. Yanping Li of Global Water Futures \url{gwf.usask.ca}. This function creates a \pkg{CRHMr} data frame from a WRF NetCDF specified by their longitude and latitude, extracting values from the nearest location.
 }
 \examples{
 \dontrun{ f <- "wrf2d_tquvr.nc"
 r <- WRFnearest2obs(f, longitude=-115.27, 
-latitude=52.03,  startDatetime = "1980-01-01 00:00", endDate="1980-12-31 23:00")
+latitude=52.03, startDatetime = "1980-01-01 00:00", endDatetime="1980-12-31 23:00")
 }
+}
+\seealso{
+\code{\link{WRFbyloc2obs}}
+}
+\author{
+Kevin Shook
 }

@@ -46,3 +46,6 @@ version 1.2.1 Mon 23 Oct 2017 02:19:14 PM CST
 
 version 1.2.2 Tue 24 Oct 2017 04:52:35 PM CST 
 - added CanRCM4AdjustedCreateHourlyObs
+
+version 1.2.4 Wed 08 Nov 2017 03:54:51 PM CST 
+- added WRFnearest2obs and WRFbyloc2obs
