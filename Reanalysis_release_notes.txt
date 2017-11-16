@@ -49,3 +49,6 @@ version 1.2.2 Tue 24 Oct 2017 04:52:35 PM CST
 
 version 1.2.4 Wed 08 Nov 2017 03:54:51 PM CST 
 - added WRFnearest2obs and WRFbyloc2obs
+
+version 1.2.5 Thu 16 Nov 2017 01:04:29 PM CST 
+- changed WRFnearest2obs and WRFbyloc2obs to only return cumulative precipitation

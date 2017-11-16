@@ -11,7 +11,7 @@
 #' @param trim Optional. If \code{TRUE} (the default) then the final output will be trimmed to CRHM day boundaries.
 #' @param quiet Optional. Suppresses display of messages, except for errors. If you are calling this function in an R script, you will usually leave \code{quiet=TRUE} (i.e. the default). If you are working interactively, you will probably want to set \code{quiet=FALSE}.
 #' @param logfile Optional. Name of the file to be used for logging the action. Normally not used.
-#' @return If successful, returns the value \code{TRUE} and (optionaly) writes the specified .obs file. If unsuccessful, returns the value \code{FALSE}.
+#' @return If successful, returns either \code{TRUE} (if an obs file is specified) or a \pkg{CRHMr} obs data frame (if no obs file is specified). The data frame will contain the standard CRHM variables: t, p, u, either rh or ea, qsi, and qli, depending on their presence in the NetCDF. Note that the precipitation is the accumulated value, because it can contain negative spikes and resets. To deaccumulate the precipitation, you will have to use the \pkg{CRHMr} weighing gauge functions, such as \code{weighingGauge1}, to fill gaps, \code{weighingGauge2} or \code{weighingGauge5} to remove resets. You can use \code{weighingGaugeInterval} to deaccumulate the values. Note that because these functions use thresholds to define missing values, spike and resets, they need to be used interatively. You can use the \code{weighingGaugePlot} to see how well the data are being processed. You may also need to remove too-large precipitation events. If unsucessful, returns \code{FALSE}.
 #' @author Kevin Shook
 #' @seealso \code{\link{WRFbyloc2obs}}
 #' @export

@@ -33,9 +33,7 @@ WRFbyloc2obs(NetCDF = "", obsfile = "",
 \item{logfile}{Optional. Name of the file to be used for logging the action. Normally not used.}
 }
 \value{
-If successful, returns the valu \code{TRUE} and (optionaly) writes the specified .obs file. If unsuccessful, returns the value \code{FALSE}.
-
-If successful, returns either \code{TRUE} (if an obs file is specified) or a \pkg{CRHMr} obs data frame (if no obs file is specified). The data frame will contain the standard CRHM variables: t, p, u, either rh or ea, qsi, and qli, depending on their presence in the NetCDF. If unsucessful, returns \code{FALSE}.
+If successful, returns either \code{TRUE} (if an obs file is specified) or a \pkg{CRHMr} obs data frame (if no obs file is specified). The data frame will contain the standard CRHM variables: t, p, u, either rh or ea, qsi, and qli, depending on their presence in the NetCDF. Note that the precipitation is the accumulated value, because it can contain negative spikes and resets. To deaccumulate the precipitation, you will have to use the \pkg{CRHMr} weighing gauge functions, such as \code{weighingGauge1}, to fill gaps, \code{weighingGauge2} or \code{weighingGauge5} to remove resets. You can use \code{weighingGaugeInterval} to deaccumulate the values. Note that because these functions use thresholds to define missing values, spike and resets, they need to be used interatively. You can use the \code{weighingGaugePlot} to see how well the data are being processed. You may also need to remove too-large precipitation events. If unsucessful, returns \code{FALSE}.
 }
 \description{
 This function is intended to work with NetCDF created by the research group of Dr. Yanping Li of Global Water Futures \url{gwf.usask.ca}. This function creates a \pkg{CRHMr} data frame from a WRF NetCDF specified by their location within the file. This function will work even if there are only values for a single location inside the NetCDF.
