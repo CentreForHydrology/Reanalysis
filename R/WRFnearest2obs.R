@@ -4,7 +4,9 @@
 #' @param obsfile Optional. If specified the values are written to the \code{obs} file.
 #' @param longitude Required. The longitude of the point being sought. The input value is \emph{not} checked for validity, in case the model extent changes.
 #' @param latitude Required. The latitude of the point being sought. The input value is \emph{not} checked for validity, in case the model extent changes.
-#' @param airPressure Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDf file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated. 
+#' @param airPressure Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDf file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated.
+#' @param returnRH Optional. If \code{TRUE}, the default, RH will be returned if air temperature values are present. If \code{FALSE}, then ea values will be returned, \emph{even if air temperatures are available}.
+#' @param restrictRH Optional. If \code{TRUE}, the default, RH values will be restricted to being between 0 and 100 percent. If \code{FALSE}, then impossible RH values can be returned. Note that this will have no effect if there are no air temperatures present, or if \code{returnRH = FALSE}, in which case values of ea will be returned.
 #' @param startDatetime Optional. Beginning date of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2000-10-01 00:00}.
 #' @param endDatetime Optional. Ending date of data to be extracted. A string formatted as "yyyy-mm-dd hh:mm". The default value is \option{2100-12-01 23:00}.
 #' @param timezone Required. The name of the timezone of the data as a character string. This should be the timezone of your data, but omitting daylight savings time. Note that the timezone code is specific to your OS. To avoid problems, you should use a timezone without daylight savings time. Under Linux, you can use \option{CST} and \option{MST} for Central Standard or Mountain Standard time, respectively. Under Windows or OSX, you can use \option{etc/GMT+6} or \option{etc/GMT+7} for Central Standard and Mountain Standard time. DO NOT use \option{America/Regina} as the time zone, as it includes historical changes between standard and daylight savings time.
@@ -24,6 +26,8 @@ WRFnearest2obs <- function(NetCDF = "", obsfile = "",
                            longitude = 0,
                            latitude = 0,
                            airPressure = 0,
+                           returnRH = TRUE,
+                           restrictRH = TRUE,
                            startDatetime = "2000-10-01 00:00",
                            endDatetime = "2100-12-01 23:00",
                            timezone = "", 
@@ -94,6 +98,8 @@ WRFnearest2obs <- function(NetCDF = "", obsfile = "",
                            west_east_loc = west_east_loc,
                            south_north_loc = south_north_loc,
                            airPressure = airPressure,
+                           returnRH = returnRH,
+                           restrictRH = restrictRH,
                            timezone = timezone, 
                            trim = trim, 
                            quiet = quiet, 

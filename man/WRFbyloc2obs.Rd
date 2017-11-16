@@ -7,7 +7,8 @@
 WRFbyloc2obs(NetCDF = "", obsfile = "",
   startDatetime = "2000-10-01 00:00", endDatetime = "2100-12-01 23:00",
   west_east_loc = 1, south_north_loc = 1, airPressure = 0,
-  timezone = "", trim = TRUE, quiet = TRUE, logfile = "")
+  returnRH = TRUE, restrictRH = TRUE, timezone = "", trim = TRUE,
+  quiet = TRUE, logfile = "")
 }
 \arguments{
 \item{NetCDF}{Required. The name of the NetCDF containing the WRF data.}
@@ -23,6 +24,10 @@ WRFbyloc2obs(NetCDF = "", obsfile = "",
 \item{south_north_loc}{Optional. The NetCDF south_north location as an integer. The default value of \code{1} specifies the southernernmost location.}
 
 \item{airPressure}{Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDF file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated.}
+
+\item{returnRH}{Optional. If \code{TRUE}, the default, RH will be returned if air temperature values are present. If \code{FALSE}, then ea values will be returned, \emph{even if air temperatures are available}.}
+
+\item{restrictRH}{Optional. If \code{TRUE}, the default, RH values will be restricted to being between 0 and 100 percent. If \code{FALSE}, then impossible RH values can be returned. Note that this will have no effect if there are no air temperatures present, or if \code{returnRH = FALSE}, in which case values of ea will be returned.}
 
 \item{timezone}{Required. The name of the timezone of the data as a character string. This should be the timezone of your data, but omitting daylight savings time. Note that the timezone code is specific to your OS. To avoid problems, you should use a timezone without daylight savings time. Under Linux, you can use \option{CST} and \option{MST} for Central Standard or Mountain Standard time, respectively. Under Windows or OSX, you can use \option{etc/GMT+6} or \option{etc/GMT+7} for Central Standard and Mountain Standard time. DO NOT use \option{America/Regina} as the time zone, as it includes historical changes between standard and daylight savings time.}
 

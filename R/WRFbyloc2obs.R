@@ -7,6 +7,8 @@
 #' @param west_east_loc Optional. The NetCDF west_east location as an integer. The default value of \code{1} specifies the westernmost location.
 #' @param south_north_loc Optional. The NetCDF south_north location as an integer. The default value of \code{1} specifies the southernernmost location.
 #' @param airPressure Optional. The mean air pressure in Pa. If set to zero (the default) then the air pressure within the NetCDF file will be used for converting the specific humidity to relative humidity. Because the air pressure may be incorrect or missing, you may wish to specify a mean air pressure to be used for the conversion. Note that if there is no air pressure within the NetCDF and you do not specify an air pressure value, this will trigger an error message, and the RH cannot be calculated.
+#' @param returnRH Optional. If \code{TRUE}, the default, RH will be returned if air temperature values are present. If \code{FALSE}, then ea values will be returned, \emph{even if air temperatures are available}.
+#' @param restrictRH Optional. If \code{TRUE}, the default, RH values will be restricted to being between 0 and 100 percent. If \code{FALSE}, then impossible RH values can be returned. Note that this will have no effect if there are no air temperatures present, or if \code{returnRH = FALSE}, in which case values of ea will be returned.
 #' @param timezone Required. The name of the timezone of the data as a character string. This should be the timezone of your data, but omitting daylight savings time. Note that the timezone code is specific to your OS. To avoid problems, you should use a timezone without daylight savings time. Under Linux, you can use \option{CST} and \option{MST} for Central Standard or Mountain Standard time, respectively. Under Windows or OSX, you can use \option{etc/GMT+6} or \option{etc/GMT+7} for Central Standard and Mountain Standard time. DO NOT use \option{America/Regina} as the time zone, as it includes historical changes between standard and daylight savings time.
 #' @param trim Optional. If \code{TRUE} (the default) then the final output will be trimmed to CRHM day boundaries.
 #' @param quiet Optional. Suppresses display of messages, except for errors. If you are calling this function in an R script, you will usually leave \code{quiet=TRUE} (i.e. the default). If you are working interactively, you will probably want to set \code{quiet=FALSE}.
@@ -25,6 +27,8 @@ WRFbyloc2obs <- function(NetCDF = "", obsfile = "",
                            west_east_loc = 1,
                            south_north_loc = 1,
                            airPressure = 0,
+                           returnRH = TRUE,
+                           restrictRH = TRUE,
                            timezone = "", 
                            trim = TRUE, 
                            quiet = TRUE, 
@@ -266,15 +270,15 @@ WRFbyloc2obs <- function(NetCDF = "", obsfile = "",
     df1$t <- T2 - 273.15
   }
 
-  if (Q2_exists & T2_exists) {
+  if (Q2_exists & T2_exists & returnRH) {
     if (!quiet) {
       cat('Air temperature is present, so will calculate RH\n')
     }
     if ((airPressure <= 0) & PSFC_exists) {
       # convert Q to RH 
-      df1$rh <- CRHMr::qair2rh(Q2, df1$t, PSFC) * 100
+      df1$rh <- CRHMr::qair2rh(Q2, df1$t, PSFC, !restrictRH) * 100
     } else if (airPressure > 0 ) {
-     df1$rh <- CRHMr::qair2rh(Q2, df1$t, airPressure) * 100
+     df1$rh <- CRHMr::qair2rh(Q2, df1$t, airPressure, !restrictRH) * 100
    }
    else (
      cat("Error - cannot calculate RH without air pressure\n")
@@ -282,9 +286,9 @@ WRFbyloc2obs <- function(NetCDF = "", obsfile = "",
     
   }
   
-  if (Q2_exists & !T2_exists) {
+  if (Q2_exists & (!T2_exists | !returnRH) ) {
     if (!quiet) {
-      cat('No air temperature, so cannot calculate RH, so will calculate ea\n')
+      cat('Will calculate ea\n')
     }
     if ((airPressure <= 0) & PSFC_exists) {
       # convert Q to ea 
