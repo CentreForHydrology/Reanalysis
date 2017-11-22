@@ -127,7 +127,7 @@ ERAgetNearestTimeseries <- function(ncdfFile, varName, pointLon, pointLat, proje
   # convert times to R times
   secs <- nctimes * 3600.0
   datetime.utc <- as.POSIXct(secs, origin='1900-01-01', tz='UTC')
-  datetime = datetime.utc - (houroffset * 3600)
+  datetime = datetime.utc + (houroffset * 3600)
 
   # force timezone
   datetime <- lubridate::force_tz(datetime, tzone=timezone)

@@ -55,3 +55,8 @@ version 1.2.5 Thu 16 Nov 2017 01:04:29 PM CST
 
 version 1.2.6 Thu 16 Nov 2017 02:47:52 PM CST 
 - added ability to return ea or impossible RH values to WRFnearest2obs and WRFbyloc2obs
+
+version 1.2.7 Wed 22 Nov 2017 10:34:49 AM CST 
+- fixed issues with ERAgetNearestTimeseries and ERAgetMultipleTimeseries
+    - problems were due to changes in upstream calcualtion of offset from UTC
+    - issues fround by Dhiraj Pradhananga

@@ -35,17 +35,17 @@
 ERAgetMultipleLocationTimeseries <- function(ncdfFile, varName, siteNames, outDir='', pointLons, pointLats, projection='+proj=utm +zone=13 +ellps=WGS84', timezones='', quiet=TRUE, logfile=''){
 
   # check parameters
-  if (ncdfFile == ''){
+  if (ncdfFile == '') {
     cat('Error: must specify NetCDF file name\n')
     return(FALSE)
   }
 
-  if (varName == ''){
+  if (varName == '') {
     cat('Error: must specify variable name\n')
     return(FALSE)
   }
 
- if(outDir == ''){
+ if(outDir == '') {
    if (!quiet)
      cat('No directory specified, current directory will be used')
    # check dirwctory name for trailing slash - add if needed
@@ -57,40 +57,40 @@ ERAgetMultipleLocationTimeseries <- function(ncdfFile, varName, siteNames, outDi
   numLats <- length(pointLats)
   numZones <- length(timezones)
   
-  if (numLons == 0){
+  if (numLons == 0) {
     cat('Error: must specify longitude\n')
     return(FALSE)
   }
 
-  if (numLats == 0){
+  if (numLats == 0) {
     cat('Error: must specify latitude\n')
     return(FALSE)
   }
 
-  if (numZones == 0){
+  if (numZones == 0) {
     cat('Error: must specify time zone\n')
     return(FALSE)
   }
   
   # check to make sure same number of values in all vectors
 
-  if(numSites != numLons){
+  if(numSites != numLons) {
     cat('Error: differing number of site names and longitudes\n')
     return(FALSE)
   }
   
-  if(numSites != numLats){
+  if(numSites != numLats) {
     cat('Error: differing number of site names and latitudes\n')
     return(FALSE)
   }
   
-  if (numZones != numSites){
-    if (numZones > numSites){
+  if (numZones != numSites) {
+    if (numZones > numSites) {
       if (!quiet)
-        cat(numZones, ' timezones to be trimmed to ', numSites  ,' sites\n', sep='')
+        cat(numZones, ' timezones to be trimmed to ', numSites  ,' sites\n', sep = '')
       timezones <- timezones[1:numSites]
     } else{
-      cat(numZones, ' timezones to be recycled to ', numSites  ,' sites\n', sep='')
+      cat(numZones, ' timezones to be recycled to ', numSites  ,' sites\n', sep = '')
       timezones <- timezones[1:numSites]
     }
     
@@ -103,18 +103,18 @@ ERAgetMultipleLocationTimeseries <- function(ncdfFile, varName, siteNames, outDi
   pointLons[pointLons < 0] <- pointLons[pointLons < 0] + 360
 
   
-  nc <-  RNetCDF::open.nc(ncdfFile, write=FALSE)
+  nc <-  RNetCDF::open.nc(ncdfFile, write = FALSE)
   # read in values netcdf file
-  for (i in 1:numSites){
+  for (i in 1:numSites) {
     siteName <- siteNames[i]
     pointLat <- pointLats[i]
     pointLon <- pointLons[i]
     timezone <- timezones[i]
     
-    nctimes <- RNetCDF::var.get.nc(nc, variable='time', unpack=TRUE)
-    all.values <- RNetCDF::var.get.nc(nc, variable=varName, unpack=TRUE)
-    lons <- as.vector(RNetCDF::var.get.nc(nc, variable='longitude', unpack=TRUE))
-    lats <- as.vector(RNetCDF::var.get.nc(nc, variable='latitude', unpack=TRUE))
+    nctimes <- RNetCDF::var.get.nc(nc, variable = 'time', unpack = TRUE)
+    all.values <- RNetCDF::var.get.nc(nc, variable = varName, unpack = TRUE)
+    lons <- as.vector(RNetCDF::var.get.nc(nc, variable = 'longitude', unpack = TRUE))
+    lats <- as.vector(RNetCDF::var.get.nc(nc, variable = 'latitude', unpack = TRUE))
     
   
     # create dataframe of lats and lons
@@ -122,24 +122,24 @@ ERAgetMultipleLocationTimeseries <- function(ncdfFile, varName, siteNames, outDi
     num.lons <- length(lons)
     latnums <- seq(1, num.lats)
     lonnums <- seq(1, num.lons)
-    all.lons <-  rep(lons, each=num.lats)
-    all.lonnums <- rep(lonnums, each=num.lats)
-    all.lats <- rep(lats, times=num.lons)
-    all.latnums <- rep(latnums, times=num.lons)
+    all.lons <-  rep(lons, each = num.lats)
+    all.lonnums <- rep(lonnums, each = num.lats)
+    all.lats <- rep(lats, times = num.lons)
+    all.latnums <- rep(latnums, times = num.lons)
     all.locs <- data.frame(all.lonnums, all.lons, all.latnums, all.lats)
-    xy <- as.matrix(all.locs[,c('all.lons', 'all.lats')], ncol=2)
+    xy <- as.matrix(all.locs[,c('all.lons', 'all.lats')], ncol = 2)
   
     # now project values
-    projected <- proj4::project(xy, proj=projection)
+    projected <- proj4::project(xy, proj = projection)
     projected <- as.data.frame(projected)
     names(projected) <- c('x', 'y')
     all.locs <- cbind(all.locs, projected)
   
     # project point
     xy2 <- list(pointLon,pointLat)
-    projected2 <- proj4::project(xy2, proj=projection)
-    point_x=projected2$x
-    point_y=projected2$y
+    projected2 <- proj4::project(xy2, proj = projection)
+    point_x <- projected2$x
+    point_y <- projected2$y
   
     # now get distance
     all.locs$xdistance <- (all.locs$x - point_x) ^ 2
@@ -154,11 +154,11 @@ ERAgetMultipleLocationTimeseries <- function(ncdfFile, varName, siteNames, outDi
     closest.lonpoint <- all.locs$all.lonnums[minpoint]
   
     # tell user data location
-    if (!quiet){
-      cat(siteName, '\n', sep='')
+    if (!quiet) {
+      cat(siteName, '\n', sep = '')
       cat('                Lon      Lat\n')
-      cat('Specified: ', format(pointLon, width=8), ' ', format(pointLat, width=8), '\n', sep='' )
-      cat('Nearest  : ', format(closest.lon, width=8), ' ', format(closest.lat, width=8), '\n', sep='' )
+      cat('Specified: ', format(pointLon, width = 8), ' ', format(pointLat, width = 8), '\n', sep = "" )
+      cat('Nearest  : ', format(closest.lon, width = 8), ' ', format(closest.lat, width = 8), '\n', sep = "")
     }
   
     # extract time series values
@@ -167,11 +167,11 @@ ERAgetMultipleLocationTimeseries <- function(ncdfFile, varName, siteNames, outDi
     # convert times to R times
     houroffset <- CRHMr::GMToffset(timezone[i])
     secs <- nctimes * 3600.0
-    datetime.utc <- as.POSIXct(secs, origin='1900-01-01', tz='UTC')
-    datetime = datetime.utc - (houroffset * 3600)
+    datetime.utc <- as.POSIXct(secs, origin = '1900-01-01', tz = 'UTC')
+    datetime = datetime.utc + (houroffset * 3600)
   
     # force timezone
-    datetime <- lubridate::force_tz(datetime, tzone=timezone)
+    datetime <- lubridate::force_tz(datetime, tzone = timezone)
   
     obs <- data.frame(datetime, values)
     names(obs) <- c('datetime', varName)
@@ -182,11 +182,11 @@ ERAgetMultipleLocationTimeseries <- function(ncdfFile, varName, siteNames, outDi
     
     # write to file
     if (outDir != '')
-      obsFilename <- paste(outDir, siteNames[i],"_", varName, ".obs", sep='')
+      obsFilename <- paste(outDir, siteNames[i],"_", varName, ".obs", sep = '')
     else
-      obsFilename <- paste(siteNames[i],"_", varName, ".obs", sep='')
+      obsFilename <- paste(siteNames[i],"_", varName, ".obs", sep = '')
     
-    CRHMr::writeObsFile(obs, obsfile = obsFilename, comment='Values from ERAgetMultipleTimeSeries')
+    CRHMr::writeObsFile(obs, obsfile = obsFilename, comment = 'Values from ERAgetMultipleTimeSeries')
     
     # output info to screen (if req'd) and write to log file
     file.info <- CRHMr::CRHM_summary(obs)
@@ -195,15 +195,12 @@ ERAgetMultipleLocationTimeseries <- function(ncdfFile, varName, siteNames, outDi
     
   }
   RNetCDF::close.nc(nc)
-  
-  
-
 
   comment <- paste('ERAgetNearestTimeseries ncdfFile:',ncdfFile,
-                   ' varName:', varName, sep='')
+                   ' varName:', varName, sep = "")
   result <- CRHMr::logAction(comment, logfile)
 
-  if(result)
+  if (result)
     return(TRUE)
   else
     return(result)
