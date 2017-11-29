@@ -24,3 +24,6 @@ Calculates the daily total WATCH precipitation for all locations in a region.
 \dontrun{
 daily_rain <- WATCHdailyArealPrecip(monthly_rain, 'CST')}
 }
+\author{
+Kevin Shook
+}

@@ -10,6 +10,6 @@
 #'   \item{glon}{x-location of the grid square}
 #'   \item{glat}{y-location of the grid square}
 #' }
-#' @source This data was extracted from a file distributed with the WFD data, which can be downlaoded from  from \url{http://www.eu-watch.org/}.
+#' @source This data was extracted from a file distributed with the WFD data, which can be downloaded from \url{http://www.eu-watch.org/}.
 "land"
 NULL

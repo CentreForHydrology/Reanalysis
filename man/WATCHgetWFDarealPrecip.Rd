@@ -29,7 +29,10 @@ Extacts the WATCH WFD precipitation (rainfall or snowfall) from a monthly netCDF
 \examples{
 \dontrun{
 monthly_rain <- WATCHgetWFDarealPrecip('Rainf_WFD_CRU_190101.nc',
- minLon=-105, maxLon=-95, minLat = 49, maxLat = 56)}
+ minLon = -105, maxLon = -95, minLat = 49, maxLat = 56)}
+}
+\seealso{
+\code{\link{WATCHdailyArealPrecip}}
 }
 \author{
 Kevin Shook

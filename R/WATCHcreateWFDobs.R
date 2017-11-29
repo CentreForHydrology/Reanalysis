@@ -12,6 +12,7 @@
 #' @param logfile Optional. Name of the file to be used for logging the action. Normally not used.
 #' @return If successful, returns the value \code{TRUE} and writes the specified .obs file. Each month's data is written as it is created. If unsuccessful, returns the value \code{FALSE}.
 #' @author Kevin Shook
+#' @seealso \code{\link{WATCHcreateWFDEIobs}}
 #' @references R code for conversion of air pressure and absolute humidity was taken from project PEcAn The Predictive Ecosystem Analyzer \url{http://pecanproject.github.io}. The source code is available at \url{https://github.com/PecanProject/pecan/blob/master/modules/data.atmosphere/R/metutils.R.}
 #' @examples
 #' \dontrun{

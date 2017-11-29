@@ -60,3 +60,7 @@ version 1.2.7 Wed 22 Nov 2017 10:34:49 AM CST
 - fixed issues with ERAgetNearestTimeseries and ERAgetMultipleTimeseries
     - problems were due to changes in upstream calcualtion of offset from UTC
     - issues fround by Dhiraj Pradhananga
+
+version 1.2.8 Wed 29 Nov 2017 04:17:22 PM CST 
+- fixed major bug in WATCHgetWFDarealPrecip
+    - bug was found by earthcli on github - thanks!

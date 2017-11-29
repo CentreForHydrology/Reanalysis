@@ -42,6 +42,9 @@ WATCHcreateWFDobs(location, 1979, 2001, -111.9, 53.2, -7, obsFileName)}
 \references{
 R code for conversion of air pressure and absolute humidity was taken from project PEcAn The Predictive Ecosystem Analyzer \url{http://pecanproject.github.io}. The source code is available at \url{https://github.com/PecanProject/pecan/blob/master/modules/data.atmosphere/R/metutils.R.}
 }
+\seealso{
+\code{\link{WATCHcreateWFDEIobs}}
+}
 \author{
 Kevin Shook
 }
