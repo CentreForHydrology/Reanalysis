@@ -64,3 +64,6 @@ version 1.2.7 Wed 22 Nov 2017 10:34:49 AM CST
 version 1.2.8 Wed 29 Nov 2017 04:17:22 PM CST 
 - fixed major bug in WATCHgetWFDarealPrecip
     - bug was found by earthcli on github - thanks!
+
+version 1.2.9 Wed 31 Jan 2018 02:08:21 PM CST 
+- fixed bug in WATCHcreateHourlyWFDobs found by Dhiraj Pradhananga

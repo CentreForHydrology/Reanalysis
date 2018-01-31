@@ -76,7 +76,7 @@ function(nc.location='', startyear=1901, endyear=2001,
   for (year in startyear:endyear){
     if (!quiet)
       cat('\nYear=', year,'\n', sep='')
-    for (month in 1:1){
+    for (month in 1:12){
       if (!quiet)
         cat(month,' ',sep='')
       # get each variable for each month
