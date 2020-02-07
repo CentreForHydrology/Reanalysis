@@ -4,7 +4,14 @@
 #' @param startYear Optional. The first year to download. Default is 1979.
 #' @param endYear Optional. The last year to download. Default is 1979.
 #' @param destination Optional. The destination directory for the downloaded files. The default is the current directory.
-#' @param variable Optional. The variable to be downloaded. Acceptable values are 'precip' (the default), 'temp', 'rh', 'wind', 'qli' and 'qli'.
+#' @param variable Optional. The variable to be downloaded. Acceptable values are one of c("acpcp", "air", "albedo", "apcp",
+#'  "bgrun", "bmixl", "cape", "ccond", "cdcon", "cdlyr", "cfrzr", "cicep", "cin", "cnwat", "crain", "csnow", "dlwrf", 
+#'  "dpt", "dswrf", "evap", "gflux", "hcdc", "hgt", "hlcy", "hpbl", "lcdc", "lftx4", "lhtfl", "mcdc", "mconv", 
+#'  "mslet", "mstav", "pevap", "pottmp", "pr_wtr", "prate", "pres", "prmsl", "rcq", "rcs", "rcsol", "rct", "rhum",
+#'  "shtfl", "shum", "snod", "snohf", "snom", "snowc", "soilm", "ssrun", "tcdc", "tke", "ulwrf", "ustm", "uswrf",
+#'  "uwnd", "veg", "vis", "vstm", "vvel", "vwnd", "vwsh", "wcconv", "wcinc", "wcuflx", "wcvflx", "weasd", "wvconv",
+#'  "wvinc", "wvuflx", "wvvflx").  Default is "acpcp" (precipitation).  See https://www.esrl.noaa.gov/psd/data/gridded/data.narr.monolevel.html
+#'  for variables description.
 #' @param quiet Optional. Suppresses display of messages, except for errors. Because this function can be very slow to execute, the default value is \code{FALSE}, to provide information on the downloading.
 #' @return Writes the specified files to the destination directory. If successful, returns \code{TRUE}. If unsuccessful, returns {FALSE}.
 #' @export
@@ -14,7 +21,7 @@ NARRdownloadNetCDF <- function(interval='daily',
                     startYear = 1979,
                     endYear = 1979,
                     destination='.',
-                    variable = 'precip',
+                    variable = 'acpcp',
                     quiet=FALSE){
   # check parameters
 
@@ -41,22 +48,6 @@ NARRdownloadNetCDF <- function(interval='daily',
   }
 
   variable <- stringr::str_to_lower(variable)
-  if (stringr::str_detect(variable, stringr::fixed('pre')))
-    variable <- 'acpcp'
-  else if (stringr::str_detect(variable, stringr::fixed('te')))
-    variable <- 'air.2m'
-  else if (stringr::str_detect(variable, stringr::fixed('h')))
-    variable <- 'rhum'
-  else if (stringr::str_detect(variable, stringr::fixed('wi')))
-    variable <- 'wind'
-  else if (stringr::str_detect(variable, stringr::fixed('qsi')))
-    variable <- 'dswrf'
-  else if (stringr::str_detect(variable, stringr::fixed('qli')))
-    variable <- 'dlwrf'
-  else{
-    cat('Error: variable not recognized\n')
-    return(FALSE)
-  }
 
   for (yearnum in startYear:endYear){
     if (!quiet)
