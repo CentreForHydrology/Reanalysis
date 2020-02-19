@@ -56,7 +56,7 @@ NARRdownloadNetCDF <- function(interval='daily',
     # create url for downloading
     file_url <- paste(url, variable,'.',yearnum,'.nc', sep='')
     destination_file <- paste(destination, variable,'.',yearnum,'.nc', sep='')
-    utils::download.file(file_url, destination_file, method='auto', quiet = quiet, mode = "w",
+    utils::download.file(file_url, destination_file, method='auto', quiet = quiet, mode = "wb",
                  cacheOK = TRUE,
                  extra = getOption("download.file.extra"))
   }
