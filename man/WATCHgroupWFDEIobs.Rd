@@ -4,9 +4,17 @@
 \alias{WATCHgroupWFDEIobs}
 \title{Create obs files from WATCH WFDEI data for groups of sites}
 \usage{
-WATCHgroupWFDEIobs(siteFile, ncLocation, outputLocation, startyear = 1979,
-  endyear = 2001, solarMethod = "PotSolarInst",
-  interpolationMethod = "linear", quiet = TRUE, logfile = "")
+WATCHgroupWFDEIobs(
+  siteFile,
+  ncLocation,
+  outputLocation,
+  startyear = 1979,
+  endyear = 2001,
+  solarMethod = "PotSolarInst",
+  interpolationMethod = "linear",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{siteFile}{Required. A .csv file containing all of the variables required to describe the site locations. These are: 

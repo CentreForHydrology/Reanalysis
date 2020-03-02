@@ -4,8 +4,14 @@
 \alias{WATCHgetWFDarealPrecip}
 \title{Extracts the WATCH WFD precipitation for a specified domain}
 \usage{
-WATCHgetWFDarealPrecip(ncdfFile = "", minLon = 0, maxLon = 0,
-  minLat = 0, maxLat = 0, logfile = "")
+WATCHgetWFDarealPrecip(
+  ncdfFile = "",
+  minLon = 0,
+  maxLon = 0,
+  minLat = 0,
+  maxLat = 0,
+  logfile = ""
+)
 }
 \arguments{
 \item{ncdfFile}{Required. NetCDF file containing monthly WATCH WFD precipitation (rainfall or snowfall). The file name must begin with the precipitation type (i.e. \option{Rainf} or \option{Snowf} and must end with the year and month, as in \option{190101}.}

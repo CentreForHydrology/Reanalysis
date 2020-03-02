@@ -4,8 +4,14 @@
 \alias{NARRdownloadNetCDF}
 \title{Downloads NARR NetCDF files}
 \usage{
-NARRdownloadNetCDF(interval = "daily", startYear = 1979, endYear = 1979,
-  destination = ".", variable = "precip", quiet = FALSE)
+NARRdownloadNetCDF(
+  interval = "daily",
+  startYear = 1979,
+  endYear = 1979,
+  destination = ".",
+  variable = "acpcp",
+  quiet = FALSE
+)
 }
 \arguments{
 \item{interval}{Optional. Time interval of NARR data. Can be '3h' or 'daily', which is the default.}
@@ -16,7 +22,14 @@ NARRdownloadNetCDF(interval = "daily", startYear = 1979, endYear = 1979,
 
 \item{destination}{Optional. The destination directory for the downloaded files. The default is the current directory.}
 
-\item{variable}{Optional. The variable to be downloaded. Acceptable values are 'precip' (the default), 'temp', 'rh', 'wind', 'qli' and 'qli'.}
+\item{variable}{Optional. The variable to be downloaded. Acceptable values are one of "acpcp", "air", "albedo", "apcp",
+"bgrun", "bmixl", "cape", "ccond", "cdcon", "cdlyr", "cfrzr", "cicep", "cin", "cnwat", "crain", "csnow", "dlwrf", 
+"dpt", "dswrf", "evap", "gflux", "hcdc", "hgt", "hlcy", "hpbl", "lcdc", "lftx4", "lhtfl", "mcdc", "mconv", 
+"mslet", "mstav", "pevap", "pottmp", "pr_wtr", "prate", "pres", "prmsl", "rcq", "rcs", "rcsol", "rct", "rhum",
+"shtfl", "shum", "snod", "snohf", "snom", "snowc", "soilm", "ssrun", "tcdc", "tke", "ulwrf", "ustm", "uswrf",
+"uwnd", "veg", "vis", "vstm", "vvel", "vwnd", "vwsh", "wcconv", "wcinc", "wcuflx", "wcvflx", "weasd", "wvconv",
+"wvinc", "wvuflx", "wvvflx".  Default is "acpcp" (precipitation).  See https://www.esrl.noaa.gov/psd/data/gridded/data.narr.monolevel.html
+for variables description.}
 
 \item{quiet}{Optional. Suppresses display of messages, except for errors. Because this function can be very slow to execute, the default value is \code{FALSE}, to provide information on the downloading.}
 }
@@ -24,9 +37,12 @@ NARRdownloadNetCDF(interval = "daily", startYear = 1979, endYear = 1979,
 Writes the specified files to the destination directory. If successful, returns \code{TRUE}. If unsuccessful, returns {FALSE}.
 }
 \description{
-Downloads NARR NetCDF files for a specified variable for a specified time step and range of years.
+Downloads NARR surface level NetCDF files for a specified variable for a specified time step and range of years.
 }
 \examples{
 \dontrun{
 NARRdownloadNetCDF('3h', 1979, 2015)}
+}
+\author{
+Kevin Shook and Bastien Ferland-Raymond
 }

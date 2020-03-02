@@ -4,10 +4,21 @@
 \alias{WRFnearest2obs}
 \title{Extracts CRHM obs variables from a WRF NetCDF closest to specified point}
 \usage{
-WRFnearest2obs(NetCDF = "", obsfile = "", longitude = 0, latitude = 0,
-  airPressure = 0, returnRH = TRUE, restrictRH = TRUE,
-  startDatetime = "2000-10-01 00:00", endDatetime = "2100-12-01 23:00",
-  timezone = "", trim = TRUE, quiet = TRUE, logfile = "")
+WRFnearest2obs(
+  NetCDF = "",
+  obsfile = "",
+  longitude = 0,
+  latitude = 0,
+  airPressure = 0,
+  returnRH = TRUE,
+  restrictRH = TRUE,
+  startDatetime = "2000-10-01 00:00",
+  endDatetime = "2100-12-01 23:00",
+  timezone = "",
+  trim = TRUE,
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{NetCDF}{Required. The name of the netCDF file containing the WRF data.}

@@ -4,8 +4,13 @@
 \alias{ERAhourlyVP}
 \title{Calculates the hourly vapour pressure from the 3-hour ERA-Interim or 6 hour ERA-40 dew point temperature}
 \usage{
-ERAhourlyVP(ERAd2m, d2mColnum = 1, method = "linear", quiet = TRUE,
-  logfile = "")
+ERAhourlyVP(
+  ERAd2m,
+  d2mColnum = 1,
+  method = "linear",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{ERAd2m}{Required. The \pkg{CRHMr} obs dataframe of ERA d2m values. The values must not be deaccumulated, as the \code{deaccumERA} function is called by this function.}

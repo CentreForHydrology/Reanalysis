@@ -4,9 +4,16 @@
 \alias{ERAgetNearestTimeseries}
 \title{Finds timeseries of ERA data nearest to specified location}
 \usage{
-ERAgetNearestTimeseries(ncdfFile, varName, pointLon, pointLat,
-  projection = "+proj=utm +zone=13 +ellps=WGS84", timezone = "",
-  quiet = TRUE, logfile = "")
+ERAgetNearestTimeseries(
+  ncdfFile,
+  varName,
+  pointLon,
+  pointLat,
+  projection = "+proj=utm +zone=13 +ellps=WGS84",
+  timezone = "",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{ncdfFile}{Required. Name of the NetCDF file containing ERA data.}

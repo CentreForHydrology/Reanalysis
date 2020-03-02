@@ -156,7 +156,7 @@ WATCHgroupWFDEIobs <- function(siteFile, ncLocation, outputLocation, startyear=1
     }
     
     # convert variables
-    all_values$t <- all_values$Tair_WFDEI - 273.15                    # K -> °C
+    all_values$t <- all_values$Tair_WFDEI - 273.15                    # K -> C
     all_values$PSurf_WFDEI <- all_values$PSurf_WFDEI * 0.01             # Pa -> mb
     all_values$e <- all_values$Qair_WFDEI * all_values$PSurf_WFDEI / 
       (0.378 * all_values$Qair_WFDEI + 0.622)
