@@ -1,5 +1,9 @@
 #' Downloads NARR NetCDF files
+<<<<<<< HEAD
 #' @description Downloads NetCDF file of a specified NARR surface level variable for a specified time step and range of years.
+=======
+#' @description Downloads NARR surface level NetCDF files for a specified variable for a specified time step and range of years.
+>>>>>>> 21bdd4cb4888ee96abb268430c7092e6410ae59e
 #' @param interval Optional. Time interval of NARR data. Can be '3h' or 'daily', which is the default.
 #' @param startYear Optional. The first year to download. Default is 1979.
 #' @param endYear Optional. The last year to download. Default is 1979.

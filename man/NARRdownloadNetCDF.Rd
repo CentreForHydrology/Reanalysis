@@ -28,8 +28,13 @@ NARRdownloadNetCDF(
 "mslet", "mstav", "pevap", "pottmp", "pr_wtr", "prate", "pres", "prmsl", "rcq", "rcs", "rcsol", "rct", "rhum",
 "shtfl", "shum", "snod", "snohf", "snom", "snowc", "soilm", "ssrun", "tcdc", "tke", "ulwrf", "ustm", "uswrf",
 "uwnd", "veg", "vis", "vstm", "vvel", "vwnd", "vwsh", "wcconv", "wcinc", "wcuflx", "wcvflx", "weasd", "wvconv",
+<<<<<<< HEAD
 "wvinc", "wvuflx", "wvvflx".  Default is "acpcp" (precipitation).  See \url{https://www.esrl.noaa.gov/psd/data/gridded/data.narr.monolevel.html}
 for descriptions of variables.}
+=======
+"wvinc", "wvuflx", "wvvflx".  Default is "acpcp" (precipitation).  See https://www.esrl.noaa.gov/psd/data/gridded/data.narr.monolevel.html
+for variables description.}
+>>>>>>> 21bdd4cb4888ee96abb268430c7092e6410ae59e
 
 \item{quiet}{Optional. Suppresses display of messages, except for errors. Because this function can be very slow to execute, the default value is \code{FALSE}, to provide information on the downloading.}
 }
@@ -37,7 +42,11 @@ for descriptions of variables.}
 Writes the specified files to the destination directory. If successful, returns \code{TRUE}. If unsuccessful, returns {FALSE}.
 }
 \description{
+<<<<<<< HEAD
 Downloads NetCDF file of a specified NARR surface level variable for a specified time step and range of years.
+=======
+Downloads NARR surface level NetCDF files for a specified variable for a specified time step and range of years.
+>>>>>>> 21bdd4cb4888ee96abb268430c7092e6410ae59e
 }
 \examples{
 \dontrun{
