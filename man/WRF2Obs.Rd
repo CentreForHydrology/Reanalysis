@@ -4,8 +4,15 @@
 \alias{WRF2Obs}
 \title{Converts a WRF netcdf file to obs}
 \usage{
-WRF2Obs(netCDFfile = "", obsfile = "", startDatetime = "2000-10-01 00:00",
-  timezone = "Etc/GMT+7", trim = TRUE, quiet = TRUE, logfile = "")
+WRF2Obs(
+  netCDFfile = "",
+  obsfile = "",
+  startDatetime = "2000-10-01 00:00",
+  timezone = "Etc/GMT+7",
+  trim = TRUE,
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{netCDFfile}{Required. The name of the netCDF file containing the WRF data.}

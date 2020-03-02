@@ -4,8 +4,15 @@
 \alias{ERAhourlyWindspeed}
 \title{Estimates hourly wind speeds from ERA-Interim 3-hourly or ERA-40 6-hourly wind vectors}
 \usage{
-ERAhourlyWindspeed(ERAu10, u10Colnum = 1, ERAv10, v10Colnum = 1,
-  method = "linear", quiet = TRUE, logfile = "")
+ERAhourlyWindspeed(
+  ERAu10,
+  u10Colnum = 1,
+  ERAv10,
+  v10Colnum = 1,
+  method = "linear",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{ERAu10}{Required. The \pkg{CRHMr} obs dataframe of ERA u10 wind vector values. The values must not be deaccumulated, as the \code{deaccumERA} function is called by this function.}

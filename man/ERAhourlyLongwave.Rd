@@ -4,8 +4,15 @@
 \alias{ERAhourlyLongwave}
 \title{Estimates hourly incoming longwave radiation from ERA-Interim 3-hourly values or ERA-40 6-hourly values}
 \usage{
-ERAhourlyLongwave(ERAstrd, strdColnum = 1, ERAt2m, t2mColnum = 1,
-  method = "linear", quiet = TRUE, logfile = "")
+ERAhourlyLongwave(
+  ERAstrd,
+  strdColnum = 1,
+  ERAt2m,
+  t2mColnum = 1,
+  method = "linear",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{ERAstrd}{Required. The \pkg{CRHMr} obs dataframe of ERA strd values. The values must not be deaccumulated, as the \code{ERAdeaccum} function is called by this function.}

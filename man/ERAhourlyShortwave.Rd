@@ -4,9 +4,16 @@
 \alias{ERAhourlyShortwave}
 \title{Estimates hourly incoming shortwave radiation from ERA-Interim 3-hourly values or ERA-40 6-hourly values}
 \usage{
-ERAhourlyShortwave(ERAssrd, ssrdColnum = 1, latitude, sunTimeOffset = 2,
-  solarMethod = "simpleMaxSolar", interpolationMethod = "linear",
-  quiet = TRUE, logfile = "")
+ERAhourlyShortwave(
+  ERAssrd,
+  ssrdColnum = 1,
+  latitude,
+  sunTimeOffset = 2,
+  solarMethod = "simpleMaxSolar",
+  interpolationMethod = "linear",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{ERAssrd}{Required. The \pkg{CRHMr} obs dataframe of ERA ssrd values. The values must not be deaccumulated, as the \code{deaccumERA} function is called by this function.}

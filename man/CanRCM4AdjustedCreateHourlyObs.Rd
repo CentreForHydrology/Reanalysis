@@ -4,11 +4,20 @@
 \alias{CanRCM4AdjustedCreateHourlyObs}
 \title{Extracts all CRHM obs variables for a specified location and duration and constructs an obs file of hourly values.}
 \usage{
-CanRCM4AdjustedCreateHourlyObs(startDate = "1979-01-01",
-  endDate = "2100-12-01", longitude = 0, latitude = 0,
-  sunTimeOffset = 2, locationName = "",
-  fileStr = "_CanRCM4_hist+fut_1979_2100", inDir = "./", outDir = "./",
-  timezone = "etc/GMT+7", write3hour = FALSE, quiet = FALSE)
+CanRCM4AdjustedCreateHourlyObs(
+  startDate = "1979-01-01",
+  endDate = "2100-12-01",
+  longitude = 0,
+  latitude = 0,
+  sunTimeOffset = 2,
+  locationName = "",
+  fileStr = "_CanRCM4_hist+fut_1979_2100",
+  inDir = "./",
+  outDir = "./",
+  timezone = "etc/GMT+7",
+  write3hour = FALSE,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{startDate}{Optional. Beginning date of data to be extracted. A string formatted as "yyyy-mm-dd". The default value of \option{1979-01-01} is the beginning of the data.}

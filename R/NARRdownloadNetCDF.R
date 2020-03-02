@@ -1,5 +1,5 @@
 #' Downloads NARR NetCDF files
-#' @description Downloads NARR NetCDF files for a specified variable for a specified time step and range of years.
+#' @description Downloads NetCDF file of a specified NARR surface level variable for a specified time step and range of years.
 #' @param interval Optional. Time interval of NARR data. Can be '3h' or 'daily', which is the default.
 #' @param startYear Optional. The first year to download. Default is 1979.
 #' @param endYear Optional. The last year to download. Default is 1979.
@@ -10,11 +10,12 @@
 #'  "mslet", "mstav", "pevap", "pottmp", "pr_wtr", "prate", "pres", "prmsl", "rcq", "rcs", "rcsol", "rct", "rhum",
 #'  "shtfl", "shum", "snod", "snohf", "snom", "snowc", "soilm", "ssrun", "tcdc", "tke", "ulwrf", "ustm", "uswrf",
 #'  "uwnd", "veg", "vis", "vstm", "vvel", "vwnd", "vwsh", "wcconv", "wcinc", "wcuflx", "wcvflx", "weasd", "wvconv",
-#'  "wvinc", "wvuflx", "wvvflx".  Default is "acpcp" (precipitation).  See https://www.esrl.noaa.gov/psd/data/gridded/data.narr.monolevel.html
-#'  for variables description.
+#'  "wvinc", "wvuflx", "wvvflx".  Default is "acpcp" (precipitation).  See \url{https://www.esrl.noaa.gov/psd/data/gridded/data.narr.monolevel.html}
+#'  for descriptions of variables.
 #' @param quiet Optional. Suppresses display of messages, except for errors. Because this function can be very slow to execute, the default value is \code{FALSE}, to provide information on the downloading.
 #' @return Writes the specified files to the destination directory. If successful, returns \code{TRUE}. If unsuccessful, returns {FALSE}.
 #' @export
+#' @author Kevin Shook and Bastien Ferland-Raymond
 #' @examples \dontrun{
 #' NARRdownloadNetCDF('3h', 1979, 2015)}
 NARRdownloadNetCDF <- function(interval='daily',

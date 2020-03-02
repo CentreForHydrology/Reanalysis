@@ -4,11 +4,21 @@
 \alias{WRFbyloc2obs}
 \title{Extracts CRHM obs variables from a WRF NetCDF at a single specified location}
 \usage{
-WRFbyloc2obs(NetCDF = "", obsfile = "",
-  startDatetime = "2000-10-01 00:00", endDatetime = "2100-12-01 23:00",
-  west_east_loc = 1, south_north_loc = 1, airPressure = 0,
-  returnRH = TRUE, restrictRH = TRUE, timezone = "", trim = TRUE,
-  quiet = TRUE, logfile = "")
+WRFbyloc2obs(
+  NetCDF = "",
+  obsfile = "",
+  startDatetime = "2000-10-01 00:00",
+  endDatetime = "2100-12-01 23:00",
+  west_east_loc = 1,
+  south_north_loc = 1,
+  airPressure = 0,
+  returnRH = TRUE,
+  restrictRH = TRUE,
+  timezone = "",
+  trim = TRUE,
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{NetCDF}{Required. The name of the NetCDF containing the WRF data.}

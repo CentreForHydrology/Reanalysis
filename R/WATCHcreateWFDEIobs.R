@@ -91,7 +91,7 @@ function(nc.location='', startyear=1979, endyear=2012,
 
       # having read all values for this month, do data conversions and write .obs file
       # calculate ea using code from https://github.com/PecanProject/pecan/blob/master/modules/data.atmosphere/R/metutils.R
-      all.values$t <- format(all.values$Tair - 273.15, digits=1)    # K -> °C
+      all.values$t <- format(all.values$Tair - 273.15, digits=1)    # K -> C
       all.values$PSurf <- all.values$PSurf * 0.01    # Pa -> mb
       all.values$e <- all.values$Qair * all.values$PSurf / (0.378 * all.values$Qair + 0.622)
       # convert back to kPa and format

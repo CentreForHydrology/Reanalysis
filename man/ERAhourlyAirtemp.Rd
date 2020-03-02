@@ -4,8 +4,13 @@
 \alias{ERAhourlyAirtemp}
 \title{Estimates hourly air temperatures from ERA-Interim 3 -hourly or ERA-40 6-hourly values}
 \usage{
-ERAhourlyAirtemp(ERAt2m, t2mColnum = 1, method = "linear", quiet = TRUE,
-  logfile = "")
+ERAhourlyAirtemp(
+  ERAt2m,
+  t2mColnum = 1,
+  method = "linear",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{ERAt2m}{Required. The \pkg{CRHMr} obs dataframe of ERA t2m values. The values must not be deaccumulated, as the \code{deaccumERA} function is called by this function.}

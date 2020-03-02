@@ -4,9 +4,15 @@
 \alias{CanRCM4unadjustedGetNearestTimeseries}
 \title{Reads a time series for the nearest point from undadjusted CanRCM4}
 \usage{
-CanRCM4unadjustedGetNearestTimeseries(netCDFfile = "", longitude = 0,
-  latitude = 0, startDate = "1979-01-01", endDate = "2100-12-01",
-  timezone = "Etc/GMT+7", logfile = "")
+CanRCM4unadjustedGetNearestTimeseries(
+  netCDFfile = "",
+  longitude = 0,
+  latitude = 0,
+  startDate = "1979-01-01",
+  endDate = "2100-12-01",
+  timezone = "Etc/GMT+7",
+  logfile = ""
+)
 }
 \arguments{
 \item{netCDFfile}{Required. The name of a NetCDF file containing a single variable.}

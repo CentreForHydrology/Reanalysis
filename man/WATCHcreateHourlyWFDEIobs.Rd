@@ -4,11 +4,21 @@
 \alias{WATCHcreateHourlyWFDEIobs}
 \title{Creates a CRHM .obs file of hourly values from WATCH reanalysis data WFDEI files}
 \usage{
-WATCHcreateHourlyWFDEIobs(nc.location = "", startyear = 1979,
-  endyear = 2012, lon = 0, lat = 0, precipType = "CRU",
-  sunTimeOffset = 2, solarMethod = "simpleMaxSolar",
-  interpolationMethod = "linear", obsFileName = "", timezone = "",
-  quiet = TRUE, logfile = "")
+WATCHcreateHourlyWFDEIobs(
+  nc.location = "",
+  startyear = 1979,
+  endyear = 2012,
+  lon = 0,
+  lat = 0,
+  precipType = "CRU",
+  sunTimeOffset = 2,
+  solarMethod = "simpleMaxSolar",
+  interpolationMethod = "linear",
+  obsFileName = "",
+  timezone = "",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{nc.location}{Required. A character string of the directory holding the WATCH WFDEI netCDf files. This is a file path WITHOUT a terminal slash, e.g. \option{z:\\WATCH\\WFDEI}}
@@ -48,7 +58,7 @@ Because this function can be slow, and uses a lot of memory, you may wish to run
 }
 \examples{
 \dontrun{
-location <- 'z:\\data\\WATCH\\WFDEI'
+location <- 'z:\data\WATCH\WFDEI'
 obsName <- 'VermilionWATCH_WFDEI.obs'
 WATCHcreateHourlyWFDEIobs(nc.location=location, 
 startyear=1979, endyear=2001, lon=-111.9, lat=53.2, timezone='Etc/GMT+7', obsFileName=obsName)

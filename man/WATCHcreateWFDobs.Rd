@@ -4,9 +4,17 @@
 \alias{WATCHcreateWFDobs}
 \title{Creates a CRHM .obs file of 3-hourly and 6-hourly values from WATCH reanalysis data WFD files}
 \usage{
-WATCHcreateWFDobs(nc.location = "", startyear = 1901, endyear = 2001,
-  lon = 0, lat = 0, houroffset = 0, obsFileName = "", quiet = TRUE,
-  logfile = "")
+WATCHcreateWFDobs(
+  nc.location = "",
+  startyear = 1901,
+  endyear = 2001,
+  lon = 0,
+  lat = 0,
+  houroffset = 0,
+  obsFileName = "",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{nc.location}{Required. A character string of the directory holding the WATCH WFD netCDf files. This is a file path WITHOUT a terminal slash, e.g. \option{z:\\WATCH\\WFD}.}
@@ -35,7 +43,7 @@ Extracts data from WATCH WFD netCDF files and builds a CRHM .obs file of 3-hour 
 }
 \examples{
 \dontrun{
-location <- 'z:\\data\\WATCH\\WFD'
+location <- 'z:\data\WATCH\WFD'
 obsFileName <- 'VermilionWATCH_WFD.obs'
 WATCHcreateWFDobs(location, 1979, 2001, -111.9, 53.2, -7, obsFileName)}
 }

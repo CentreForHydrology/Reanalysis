@@ -4,9 +4,18 @@
 \alias{ERAgetMultipleLocationTimeseries}
 \title{Extracts timeseries of ERA data nearest to multiple specified locations}
 \usage{
-ERAgetMultipleLocationTimeseries(ncdfFile, varName, siteNames, outDir = "",
-  pointLons, pointLats, projection = "+proj=utm +zone=13 +ellps=WGS84",
-  timezones = "", quiet = TRUE, logfile = "")
+ERAgetMultipleLocationTimeseries(
+  ncdfFile,
+  varName,
+  siteNames,
+  outDir = "",
+  pointLons,
+  pointLats,
+  projection = "+proj=utm +zone=13 +ellps=WGS84",
+  timezones = "",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{ncdfFile}{Required. Name of the NetCDF file containing ERA data.}

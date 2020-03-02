@@ -4,8 +4,15 @@
 \alias{NARRgetNearestTimeseries}
 \title{Finds timeseries of NARR data nearest to specified location}
 \usage{
-NARRgetNearestTimeseries(ncdfFile, varName, pointLon, pointLat, timezone = "",
-  quiet = TRUE, logfile = "")
+NARRgetNearestTimeseries(
+  ncdfFile,
+  varName,
+  pointLon,
+  pointLat,
+  timezone = "",
+  quiet = TRUE,
+  logfile = ""
+)
 }
 \arguments{
 \item{ncdfFile}{Name of the NetCDF file containing ERA data.}

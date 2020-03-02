@@ -152,11 +152,11 @@ WATCHgroupWFDobs <- function(siteFile, ncLocation, outputLocation, startyear=190
       if(var_num == 1)
         all_values <- var_values
       else
-        all_values <- merge(all_values, var_values, by='datetime', all=TRUE)
+        all_values <- merge(all_values, var_values, by = 'datetime', all = TRUE)
     }
     
     # convert variables
-    all_values$t <- all_values$Tair_WFD - 273.15                    # K -> °C
+    all_values$t <- all_values$Tair_WFD - 273.15                    # K -> C
     all_values$PSurf_WFD <- all_values$PSurf_WFD * 0.01             # Pa -> mb
     all_values$e <- all_values$Qair_WFD * all_values$PSurf_WFD / 
       (0.378 * all_values$Qair_WFD + 0.622)
