@@ -4,13 +4,13 @@
 #' @param startYear Optional. The first year to download. Default is 1979.
 #' @param endYear Optional. The last year to download. Default is 1979.
 #' @param destination Optional. The destination directory for the downloaded files. The default is the current directory.
-#' @param variable Optional. The variable to be downloaded. Acceptable values are one of c("acpcp", "air", "albedo", "apcp",
+#' @param variable Optional. The variable to be downloaded. Acceptable values are one of "acpcp", "air", "albedo", "apcp",
 #'  "bgrun", "bmixl", "cape", "ccond", "cdcon", "cdlyr", "cfrzr", "cicep", "cin", "cnwat", "crain", "csnow", "dlwrf", 
 #'  "dpt", "dswrf", "evap", "gflux", "hcdc", "hgt", "hlcy", "hpbl", "lcdc", "lftx4", "lhtfl", "mcdc", "mconv", 
 #'  "mslet", "mstav", "pevap", "pottmp", "pr_wtr", "prate", "pres", "prmsl", "rcq", "rcs", "rcsol", "rct", "rhum",
 #'  "shtfl", "shum", "snod", "snohf", "snom", "snowc", "soilm", "ssrun", "tcdc", "tke", "ulwrf", "ustm", "uswrf",
 #'  "uwnd", "veg", "vis", "vstm", "vvel", "vwnd", "vwsh", "wcconv", "wcinc", "wcuflx", "wcvflx", "weasd", "wvconv",
-#'  "wvinc", "wvuflx", "wvvflx").  Default is "acpcp" (precipitation).  See https://www.esrl.noaa.gov/psd/data/gridded/data.narr.monolevel.html
+#'  "wvinc", "wvuflx", "wvvflx".  Default is "acpcp" (precipitation).  See https://www.esrl.noaa.gov/psd/data/gridded/data.narr.monolevel.html
 #'  for variables description.
 #' @param quiet Optional. Suppresses display of messages, except for errors. Because this function can be very slow to execute, the default value is \code{FALSE}, to provide information on the downloading.
 #' @return Writes the specified files to the destination directory. If successful, returns \code{TRUE}. If unsuccessful, returns {FALSE}.
@@ -25,7 +25,7 @@ NARRdownloadNetCDF <- function(interval='daily',
                     quiet=FALSE){
   # check parameters
 
-  if(!file.exists(destination)){
+  if (!file.exists(destination)) {
     cat('Error: destination directory does not exist\n')
     return(FALSE)
   }
@@ -33,8 +33,8 @@ NARRdownloadNetCDF <- function(interval='daily',
   # check destination directory for terminal slash
   n <- nchar(destination) 
   last_char <- substr(destination, n, n) 
-  if(last_char != '/')
-    destination <- paste(destination, '/', sep='')
+  if (last_char != '/')
+    destination <- paste(destination, '/', sep = '')
   
 
   interval <- stringr::str_to_lower(interval)
@@ -49,16 +49,16 @@ NARRdownloadNetCDF <- function(interval='daily',
 
   variable <- stringr::str_to_lower(variable)
 
-  for (yearnum in startYear:endYear){
+  for (yearnum in startYear:endYear) {
     if (!quiet)
-      cat('year:', yearnum, '\n', sep='')
+      cat('year:', yearnum, '\n', sep = '')
 
     # create url for downloading
-    file_url <- paste(url, variable,'.',yearnum,'.nc', sep='')
-    destination_file <- paste(destination, variable,'.',yearnum,'.nc', sep='')
-    utils::download.file(file_url, destination_file, method='auto', quiet = quiet, mode = "wb",
-                 cacheOK = TRUE,
-                 extra = getOption("download.file.extra"))
+    file_url <- paste(url, variable,'.', yearnum, '.nc', sep = '')
+    destination_file <- paste(destination, variable,'.',yearnum,'.nc', sep = '')
+    utils::download.file(file_url, destination_file, method = 'auto', 
+                         quiet = quiet, mode = "wb", cacheOK = TRUE, 
+                         extra = getOption("download.file.extra"))
   }
 
   return(TRUE)
