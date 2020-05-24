@@ -60,6 +60,7 @@ ERAhourlyLongwave <- function(ERAstrd, strdColnum=1, ERAt2m, t2mColnum=1,
     
     # downscale longwave
     hourlyLW <- CRHMr::distributeQli(longwaveDeaccum, 1, airtemp, 1)
+    names(hourlyLW)[2] <- "Qli"
     
   } else {
     longwaveDeaccum <- ERAstrd
@@ -71,6 +72,7 @@ ERAhourlyLongwave <- function(ERAstrd, strdColnum=1, ERAt2m, t2mColnum=1,
     hourlyLW <- CRHMr::distributeInst(longwaveDeaccum, obsCols = 1, timeStep = 1, 
                                       interpolationMethod = method, maxLength = maxInterval,
                                       quiet = quiet, logfile = logfile)
+    names(hourlyLW)[2] <- "Qli"
   }
     
   # output log files
