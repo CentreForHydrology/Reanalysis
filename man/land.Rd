@@ -4,7 +4,8 @@
 \name{land}
 \alias{land}
 \title{Land locations}
-\format{A dataframe with 67420 rows and 6 variables:
+\format{
+A dataframe with 67420 rows and 6 variables:
 \describe{
   \item{Land}{number of the grid location}
   \item{Longitude}{longitude of the centre grid square}
@@ -12,7 +13,8 @@
   \item{Ht.m}{elevation of the centre grid squar}
   \item{glon}{x-location of the grid square}
   \item{glat}{y-location of the grid square}
-}}
+}
+}
 \source{
 This data was extracted from a file distributed with the WFD data, which can be downloaded from \url{http://www.eu-watch.org/}.
 }
