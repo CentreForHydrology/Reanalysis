@@ -21,7 +21,7 @@ WFDEI_GEM_CaPA_getNearestTimeseries(
 
 \item{varName}{Required. Name of the NetCDF variable to extract.}
 
-\item{pointLon}{Required. Decimal longitude of desired location. Note that the NetCDF longitude is 0-360\eqn{^\circ}{}, so add 360 to negative longitudes.}
+\item{pointLon}{Required. Decimal longitude of desired location.}
 
 \item{pointLat}{Required. Decimal latitude of desired location.}
 
@@ -40,24 +40,12 @@ If unsuccessful, returns \code{FALSE}. If successful, returns a standard \pkg{CR
 Reads a NetCDF file containing WFDEI-GEM-CaPA reanalysis data and extracts the timeseries of the specified variable. Some of the the commonly-used variables are:
 \tabular{llr}{
 \bold{Parameter} \tab \bold{Units} \tab \bold{Variable}\cr
-10 m eastward wind component \tab m/s \tab u10\cr
-10 m northward wind component \tab m/s \tab v10\cr
-2 metre temperature	\tab K \tab t2m \cr
-2 metre dewpoint \tab K \tab d2m \cr
-Downward surface solar radiation* \tab J/m\eqn{^2}{^2} \tab ssrd\cr
-Downward surface thermal radiation* \tab J/m\eqn{^2}{^2} \tab strd\cr
-Surface net solar radiation* \tab J/m\eqn{^2}{^2} \tab ssr \cr
-Surface net thermal radiation* \tab J/m\eqn{^2}{^2} \tab str \cr
-Total precipitation* \tab m of water \tab tp \cr
+40 m wind speed \tab m s-1 \tab wind_speed\cr
+40 m air temperature	\tab K \tab ta \cr
+40 m specific humidity \tab kg kg-1 \tab hus \cr
+Surface precipitation\tab kg m-2 s-1 \tab pr \cr
+Surface pressure\tab Pa \tab ps \cr
 }
-Parameters marked with an asterisk are \emph{cumulative} values, and must be deaccumulated using the deaccumERA function.
-}
-\examples{
-\dontrun{
-ta <- WFDEI-GEM-CaPAgetNearestTimeseries('1979.nc', 'ta', 69, 51.69, timezone='Etc/GMT+7')
-p <- WFDEI-GEM-CaPAgetNearestTimeseries('1979.nc', 'pr', 243.5, 51.69, timezone='Etc/GMT+7')
-u <- WFDEI-GEM-CaPAgetNearestTimeseries('1979.nc', 'wind_speed', 243.5, 51.69, timezone='Etc/GMT+7')
-ps <- WFDEI-GEM-CaPAgetNearestTimeseries('1979.nc', 'd2m', 243.5, 51.69, timezone='Etc/GMT+7')}
 }
 \seealso{
 \code{\link{ERAdeaccum}}
