@@ -5,14 +5,11 @@
 #' @param startYear Optional. The first year to download. Default is 1979.
 #' @param endYear Optional. The last year to download. Default is 1979.
 #' @param destination Optional. The destination directory for the downloaded files. The default is the current directory.
-#' @param variable Optional. The variable to be downloaded. Acceptable values are one of "acpcp", "air", "albedo", "apcp",
-#'  "bgrun", "bmixl", "cape", "ccond", "cdcon", "cdlyr", "cfrzr", "cicep", "cin", "cnwat", "crain", "csnow", "dlwrf", 
-#'  "dpt", "dswrf", "evap", "gflux", "hcdc", "hgt", "hlcy", "hpbl", "lcdc", "lftx4", "lhtfl", "mcdc", "mconv", 
-#'  "mslet", "mstav", "pevap", "pottmp", "pr_wtr", "prate", "pres", "prmsl", "rcq", "rcs", "rcsol", "rct", "rhum",
-#'  "shtfl", "shum", "snod", "snohf", "snom", "snowc", "soilm", "ssrun", "tcdc", "tke", "ulwrf", "ustm", "uswrf",
-#'  "uwnd", "veg", "vis", "vstm", "vvel", "vwnd", "vwsh", "wcconv", "wcinc", "wcuflx", "wcvflx", "weasd", "wvconv",
-#'  "wvinc", "wvuflx", "wvvflx".  Default is "acpcp" (precipitation).  See \url{https://www.esrl.noaa.gov/psd/data/gridded/data.narr.monolevel.html}
-#'  for descriptions of variables.
+#' @param variable Optional. The variable to be downloaded. Acceptable values are 
+#'   given at \url{https://www.esrl.noaa.gov/psd/data/gridded/data.narr.monolevel.html}. Some of the more
+#'   popular variables are \option{acpcp}, (accumulated precipitation), \option{air.2m} (air temperature at 2m), 
+#'   \code{rhum.2m} (Relative Humidity at 2m), \code{uwnd.10m} (U-wind at 10 m), and 
+#'   \code{vwnd.10m}(V-wind at 10 m. Default is \code{acpcp}.  
 #' @param quiet Optional. Suppresses display of messages, except for errors. Because this function can be very slow to execute, the default value is \code{FALSE}, to provide information on the downloading.
 #' @return Writes the specified files to the destination directory. If successful, returns \code{TRUE}. If unsuccessful, returns {FALSE}.
 #' @export

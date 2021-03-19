@@ -23,7 +23,7 @@
 #' @export
 #' @seealso  \code{\link{ERAdeaccum}}
 #' @examples \dontrun{
-#' ta <- WFDEI-GEM-CaPAgetNearestTimeseries('1979.nc', 'ta', -115.5, 51.69, timezone='Etc/GMT+7')
+#' ta <- WFDEI-GEM-CaPAgetNearestTimeseries('1979.nc', 'ta', -115.5, 51.69, timezone='Etc/GMT+7')}
 
 WFDEI_GEM_CaPA_getNearestTimeseries <- function(ncdfFile, varName, pointLon, pointLat, projection='+proj=utm +zone=13 +ellps=WGS84', timezone='', quiet=TRUE, logfile=''){
 

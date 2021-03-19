@@ -47,6 +47,10 @@ Surface precipitation\tab kg m-2 s-1 \tab pr \cr
 Surface pressure\tab Pa \tab ps \cr
 }
 }
+\examples{
+\dontrun{
+ta <- WFDEI-GEM-CaPAgetNearestTimeseries('1979.nc', 'ta', -115.5, 51.69, timezone='Etc/GMT+7')}
+}
 \seealso{
 \code{\link{ERAdeaccum}}
 }
