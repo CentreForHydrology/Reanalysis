@@ -3,6 +3,7 @@
 export(CanRCM4AdjustedCreateHourlyObs)
 export(CanRCM4adjustedGetNearestTimeseries)
 export(CanRCM4unadjustedGetNearestTimeseries)
+export(ERA5deaccum)
 export(ERAdailyArealPrecip)
 export(ERAdeaccum)
 export(ERAgetArealPrecip)

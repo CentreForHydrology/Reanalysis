@@ -12,7 +12,7 @@
 #' @examples \dontrun{
 #' deaccum <- ERA5deaccum(ERAobs)}
 #'
-ERAdeaccum <- function(ERAobs, colnum=1, quiet=TRUE, logfile=''){
+ERA5deaccum <- function(ERAobs, colnum=1, quiet=TRUE, logfile=''){
   # check parameters
 
   obsName <- deparse(substitute(ERAobs))
