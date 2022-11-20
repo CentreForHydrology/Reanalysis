@@ -1,16 +1,16 @@
-#' Deaccumulates ERA cumulative time series
-#' @description This function is used to deaccumulate variables stored as 12-hour cumulative values by ERA to 3-hour values. It is called by other functions, but may also be useful as a stand-alone functions. Note that this function only works for a single location, i.e. \emph{NOT} areal values.
-#' @param ERAobs Required. A \pkg{CRHMr} obs dataframe of ERA data, created by \code{ERAgetnearestTimeSeries}.
+#' Deaccumulates ERA5 cumulative precipitation time series
+#' @description This function is used to deaccumulate variables stored as 24-hour cumulative values by ERA to 1-hour values. Note that this function only works for a single location, i.e. \emph{NOT} areal values.
+#' @param ERAobs Required. A \pkg{CRHMr} obs data frame of ERA 5 data, created by \code{ERAgetnearestTimeSeries}.
 #' @param colnum Optional. The column number containing the values to be deaccumulated, not including the datetime. Default is column 1.
 #' @param quiet Optional. Suppresses display of messages, except for errors. If you are calling this function in an R script, you will usually leave \code{quiet=TRUE} (i.e. the default). If you are working interactively, you will probably want to set \code{quiet=FALSE}.
-#'@param logfile Optional. Name of the file to be used for logging the action. Normally not used
+#'@param logfile Optional. Name of the file to be used for logging the action. Normally not used.
 #'
-#' @return If successful, returns an obs dataframe containing the deaccumulated value. If unsuccessful, returns the value \code{FALSE}.
+#' @return If successful, returns an obs data frame containing the deaccumulated value. If unsuccessful, returns the value \code{FALSE}.
 #' @author Kevin Shook
 #' @export
 #'
 #' @examples \dontrun{
-#' deaccum <- ERAdeaccum(ERAobs)}
+#' deaccum <- ERA5deaccum(ERAobs)}
 #'
 ERAdeaccum <- function(ERAobs, colnum=1, quiet=TRUE, logfile=''){
   # check parameters
@@ -29,10 +29,8 @@ ERAdeaccum <- function(ERAobs, colnum=1, quiet=TRUE, logfile=''){
   colnum <- colnum + 1
   deaccum <-  c(ERAobs[1,colnum], diff(ERAobs[,colnum]))
 
-
-  resets <- seq(from=1, by=4, length.out=length(deaccum)/4)
-  deaccum[resets] <- ERAobs[resets, colnum]
-  ERAobs[,colnum] <- deaccum
+  hours <- as.numeric(format(ERAobs$datetime, "%H"))
+  ERAobs[hours != 1, colnum] <- deaccum[hours != 1]
 
 
   # output info to screen (if req'd) and write to log file
